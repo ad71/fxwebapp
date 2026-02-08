@@ -1,0 +1,79 @@
+.container {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 60;
+}
+
+.toast {
+  min-width: 300px;
+  max-width: 420px;
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(14, 20, 27, 0.1);
+  padding: 14px 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  animation: slideIn 240ms ease forwards;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.icon {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.textGroup {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-ink-900);
+}
+
+.message {
+  font-size: 13px;
+  color: var(--color-ink-500);
+  line-height: 1.4;
+}
+
+.success {
+  border-left: 3px solid var(--color-semantic-success-600);
+}
+
+.warning {
+  border-left: 3px solid var(--color-semantic-warning-600);
+}
+
+.danger {
+  border-left: 3px solid var(--color-semantic-danger-600);
+}
+
+.info {
+  border-left: 3px solid var(--color-semantic-info-600);
+}

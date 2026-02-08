@@ -83,7 +83,7 @@ export const tokens =
   {
     fontFamily: 
     {
-      sans: "\"Sora\", \"Space Grotesk\", \"Segoe UI\", sans-serif",
+      sans: "var(--font-sora), var(--font-space-grotesk), \"Segoe UI\", sans-serif",
       mono: "\"JetBrains Mono\", \"SF Mono\", monospace"
     },
     size: 

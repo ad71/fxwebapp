@@ -42,7 +42,7 @@
   --color-chart-axis: #9AA3AF;
   --color-chart-line: #1F8F8A;
   --color-chart-fill: rgba(31, 143, 138, 0.12);
-  --typography-fontFamily-sans: "Sora", "Space Grotesk", "Segoe UI", sans-serif;
+  --typography-fontFamily-sans: var(--font-sora), var(--font-space-grotesk), "Segoe UI", sans-serif;
   --typography-fontFamily-mono: "JetBrains Mono", "SF Mono", monospace;
   --typography-size-xs: 12;
   --typography-size-sm: 13;

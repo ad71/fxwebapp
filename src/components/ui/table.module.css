@@ -1,0 +1,36 @@
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: var(--color-surface-1);
+}
+
+.head {
+  background: var(--color-surface-2);
+}
+
+.row {
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.cell,
+.headerCell {
+  padding: 10px 14px;
+  text-align: left;
+}
+
+.headerCell {
+  font-weight: 600;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-500);
+}
+
+.bodyRow {
+  transition: background 120ms ease;
+}
+
+.bodyRow:hover {
+  background: rgba(31, 143, 138, 0.04);
+}

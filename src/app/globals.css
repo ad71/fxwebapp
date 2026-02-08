@@ -7,7 +7,24 @@ html, body {
   margin: 0;
   background: var(--color-canvas);
   color: var(--color-ink-900);
-  font-family: var(--font-sans);
+  font-family: var(--font-sora), var(--font-space-grotesk), "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 600;
+  color: var(--color-ink-900);
+  letter-spacing: -0.01em;
+}
+
+p {
+  margin: 0;
+  color: var(--color-ink-600);
 }
 
 a {
@@ -17,4 +34,33 @@ a {
 
 button, input, select, textarea {
   font: inherit;
+}
+
+::selection {
+  background: rgba(31, 143, 138, 0.15);
+  color: var(--color-ink-900);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-brand-300);
+  outline-offset: 2px;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-ink-200);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ink-300);
 }

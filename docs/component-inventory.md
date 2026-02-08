@@ -7,9 +7,9 @@ This inventory defines the UI building blocks for the FX web app, aligned to the
 ## Library Versions (Pinned)
 All versions are the latest stable releases found via web search.
 
-- Framework: Next.js 16.1.6
-- UI runtime: React 19.2.0, React DOM 19.2.2
-- Language: TypeScript 5.9
+- Framework: Next.js 16.1.4
+- UI runtime: React 19.2.4, React DOM 19.2.4
+- Language: TypeScript 5.9.0
 - Styling: Tailwind CSS 4.1.13
 - Primitives: Radix UI 1.2.1 (@radix-ui/react-dialog)
 - Data fetching: @tanstack/react-query 5.87.1
