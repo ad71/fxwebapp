@@ -1,0 +1,141 @@
+.analyticsBody {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.statBlock {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 16px;
+  background: var(--color-surface-2);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.statLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-ink-500);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.statValue {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--color-ink-900);
+  letter-spacing: -0.02em;
+}
+
+.riskBars {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.riskRow {
+  display: grid;
+  grid-template-columns: 100px 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.riskLabel {
+  font-size: 12px;
+  color: var(--color-ink-500);
+}
+
+.riskBarTrack {
+  height: 8px;
+  background: var(--color-surface-2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.riskBarFill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 600ms ease;
+}
+
+.riskBarBrand {
+  background: var(--color-brand-400);
+}
+
+.riskBarDanger {
+  background: var(--color-semantic-danger-600);
+}
+
+.riskAmt {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 12px;
+  color: var(--color-ink-600);
+  text-align: right;
+  min-width: 70px;
+}
+
+.chartPlaceholder {
+  margin-top: 20px;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.chartLine {
+  height: 80px;
+  background: linear-gradient(
+    180deg,
+    rgba(31, 143, 138, 0.06) 0%,
+    transparent 100%
+  );
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.chartLine::after {
+  content: "";
+  position: absolute;
+  top: 30%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-brand-300),
+    var(--color-brand-500),
+    var(--color-brand-300)
+  );
+  opacity: 0.6;
+}
+
+.chartLegend {
+  display: flex;
+  gap: 16px;
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--color-ink-500);
+}
+
+.chartLegend span {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dotDanger {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-semantic-danger-600);
+}
+
+.dotBrand {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-brand-400);
+}

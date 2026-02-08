@@ -1,0 +1,74 @@
+.widget {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(14, 20, 27, 0.04);
+  transition: box-shadow 240ms ease;
+  height: 100%;
+}
+
+.widget:hover {
+  box-shadow: 0 2px 8px rgba(14, 20, 27, 0.06);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 20px 0;
+  flex-shrink: 0;
+}
+
+.dragHandle {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  cursor: grab;
+  padding: 4px 2px;
+  border-radius: 4px;
+  color: var(--color-ink-300);
+  transition: color 180ms ease;
+  flex-shrink: 0;
+}
+
+.dragHandle:hover {
+  color: var(--color-ink-500);
+}
+
+.dragHandle:active {
+  cursor: grabbing;
+}
+
+.gripDots {
+  display: grid;
+  grid-template-columns: repeat(2, 4px);
+  gap: 2px;
+}
+
+.gripDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-ink-900);
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.body {
+  flex: 1;
+  overflow: auto;
+  padding: 16px 20px 20px;
+}

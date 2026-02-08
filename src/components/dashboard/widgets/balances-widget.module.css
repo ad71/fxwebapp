@@ -1,0 +1,32 @@
+.balanceList {
+  display: flex;
+  flex-direction: column;
+}
+
+.balanceRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.balanceRow:last-child {
+  border-bottom: none;
+}
+
+.balanceCcy {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-ink-700);
+}
+
+.balanceAmt {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-ink-900);
+}

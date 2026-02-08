@@ -1,0 +1,29 @@
+.settlementRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.settlementItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.settlementLabel {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-ink-500);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  background: var(--color-surface-2);
+  border-radius: 6px;
+}
+
+@media (max-width: 640px) {
+  .settlementRow {
+    grid-template-columns: 1fr;
+  }
+}
