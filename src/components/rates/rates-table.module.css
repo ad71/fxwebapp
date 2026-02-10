@@ -1,0 +1,264 @@
+.tableWrap {
+  overflow-x: auto;
+}
+
+/* ── Header ── */
+.header {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.4fr) minmax(90px, 1fr) minmax(90px, 1fr) minmax(70px, 0.7fr) minmax(140px, 1.3fr) minmax(140px, 1.3fr) minmax(90px, 0.8fr);
+  gap: 8px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-400);
+  white-space: nowrap;
+  align-items: center;
+}
+
+/* ── Body ── */
+.body {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Row ── */
+.row {
+  display: grid;
+  grid-template-columns: minmax(180px, 1.4fr) minmax(90px, 1fr) minmax(90px, 1fr) minmax(70px, 0.7fr) minmax(140px, 1.3fr) minmax(140px, 1.3fr) minmax(90px, 0.8fr);
+  gap: 8px;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  align-items: center;
+  transition: background 120ms ease, box-shadow 200ms ease;
+  cursor: default;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.row:hover {
+  background: rgba(31, 143, 138, 0.035);
+}
+
+/* ── Drag handle ── */
+.dragHandle {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  cursor: grab;
+  padding: 6px 4px;
+  border-radius: 4px;
+  color: var(--color-ink-200);
+  transition: color 180ms ease;
+  flex-shrink: 0;
+}
+
+.dragHandle:hover {
+  color: var(--color-ink-400);
+}
+
+.dragHandle:active {
+  cursor: grabbing;
+}
+
+.gripDots {
+  display: grid;
+  grid-template-columns: repeat(2, 3px);
+  gap: 2px;
+}
+
+.gripDot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+/* ── Dragging states ── */
+.rowDragging {
+  opacity: 0.4;
+  background: var(--color-surface-2);
+}
+
+.rowDragOver {
+  border-top: 2px solid var(--color-brand-400);
+}
+
+/* ── Currency pair cell ── */
+.pairCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pairFlag {
+  font-size: 22px;
+  line-height: 1;
+  filter: saturate(0.85);
+}
+
+.pairInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.pairName {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-ink-900);
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.pairMarket {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-ink-400);
+  line-height: 1.3;
+}
+
+/* ── Price columns ── */
+.priceCol {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-ink-900);
+  position: relative;
+  letter-spacing: -0.01em;
+}
+
+.priceCol > span {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 5px;
+}
+
+/* ── Spread ── */
+.spreadCol {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-ink-400);
+  letter-spacing: -0.01em;
+}
+
+/* ── 24h Change ── */
+.changeCol {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.changePositive {
+  color: var(--color-semantic-success-600);
+}
+
+.changeNegative {
+  color: var(--color-semantic-danger-600);
+}
+
+.changeArrow {
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.changePct {
+  opacity: 0.75;
+}
+
+/* ── Range ── */
+.rangeCol {
+  padding-right: 8px;
+}
+
+/* ── Time ── */
+.timeCol {
+  font-size: 12px;
+  color: var(--color-ink-400);
+  white-space: nowrap;
+  padding-left: 4px;
+}
+
+/* ── Flash animations ── */
+@keyframes flashUpAnim {
+  0% {
+    background-color: rgba(46, 158, 91, 0.28);
+    color: var(--color-semantic-success-700);
+  }
+  40% {
+    background-color: rgba(46, 158, 91, 0.12);
+  }
+  100% {
+    background-color: transparent;
+    color: inherit;
+  }
+}
+
+@keyframes flashDownAnim {
+  0% {
+    background-color: rgba(217, 84, 77, 0.28);
+    color: var(--color-semantic-danger-700);
+  }
+  40% {
+    background-color: rgba(217, 84, 77, 0.12);
+  }
+  100% {
+    background-color: transparent;
+    color: inherit;
+  }
+}
+
+.flashUp {
+  animation: flashUpAnim 800ms ease-out;
+}
+
+.flashDown {
+  animation: flashDownAnim 800ms ease-out;
+}
+
+/* ── Empty state ── */
+.empty {
+  padding: 48px 24px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--color-ink-400);
+}
+
+/* ── Responsive ── */
+@media (max-width: 1024px) {
+  .header,
+  .row {
+    grid-template-columns: minmax(160px, 1.4fr) minmax(80px, 1fr) minmax(80px, 1fr) minmax(60px, 0.7fr) minmax(120px, 1.2fr) minmax(70px, 0.7fr);
+  }
+
+  .rangeCol {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .header {
+    display: none;
+  }
+
+  .row {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 16px 16px;
+  }
+
+  .rangeCol,
+  .timeCol,
+  .dragHandle {
+    display: none;
+  }
+}

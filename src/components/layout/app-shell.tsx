@@ -7,6 +7,7 @@ import styles from "./app-shell.module.css";
 
 const NAV_ITEMS = [
   { label: "DASH", href: "/", icon: "⌂" },
+  { label: "RATES", href: "/rates", icon: "◈" },
   { label: "TRADE", href: "/trade", icon: "⇄" },
   { label: "DISCOVER", href: "/discover", icon: "✦" },
   { label: "WALLET", href: "/wallet", icon: "▤" },
@@ -28,9 +29,9 @@ export const AppShell: React.FC<React.PropsWithChildren> = ({ children }) => {
           <div className={styles.topbarLeft}>
             <Link href="/" className={styles.brand}>
               <div className={styles.brandMark}>
-                <span className={styles.brandLetter}>F</span>
+                <span className={styles.brandLetter}>bfx</span>
               </div>
-              <span className={styles.brandName}>FX Platform</span>
+              <span className={styles.brandName}>Balli FX</span>
             </Link>
 
             <button
@@ -105,8 +106,8 @@ export const AppShell: React.FC<React.PropsWithChildren> = ({ children }) => {
 
             <div className={styles.userSection}>
               <div className={styles.userInfo}>
-                <span className={styles.userName}>Marcus Corp</span>
-                <span className={styles.userEmail}>marcus@corp.io</span>
+                <span className={styles.userName}>Ritik Bali</span>
+                <span className={styles.userEmail}>ritik@bali.com</span>
               </div>
               <div className={styles.userAvatar}>
                 <svg

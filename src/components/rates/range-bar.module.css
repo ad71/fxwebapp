@@ -1,0 +1,55 @@
+.rangeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.labels {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-ink-600);
+  line-height: 1;
+}
+
+.separator {
+  color: var(--color-ink-300);
+  margin: 0 1px;
+}
+
+.label {
+  white-space: nowrap;
+}
+
+.track {
+  position: relative;
+  height: 3px;
+  background: var(--color-ink-100);
+  border-radius: 2px;
+  overflow: visible;
+}
+
+.fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--color-brand-300);
+  border-radius: 2px;
+  transition: width 400ms ease;
+}
+
+.dot {
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  background: var(--color-brand-500);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: left 400ms ease;
+  box-shadow: 0 0 0 2px var(--color-surface-1);
+}
