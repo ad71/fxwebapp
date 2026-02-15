@@ -16,10 +16,10 @@ export const DEFAULT_LAYOUTS: DashboardLayout = [
   { i: "settlements-next", x: 5, y: 0, w: 4, h: 4, minW: 3, minH: 3 },
   { i: "var", x: 9, y: 0, w: 3, h: 4, minW: 2, minH: 3 },
   { i: "payments", x: 0, y: 4, w: 8, h: 4, minW: 4, minH: 3 },
-  { i: "hedge-ratio", x: 8, y: 4, w: 4, h: 2, minW: 3, minH: 2 },
-  { i: "balances", x: 8, y: 6, w: 4, h: 4, minW: 3, minH: 3 },
+  { i: "hedge-ratio", x: 8, y: 4, w: 4, h: 4, minW: 3, minH: 2 },
+  { i: "balances", x: 8, y: 8, w: 4, h: 4, minW: 3, minH: 3 },
   { i: "recent-trades", x: 0, y: 8, w: 8, h: 5, minW: 4, minH: 4 },
-  { i: "performance", x: 8, y: 8, w: 4, h: 5, minW: 3, minH: 4 },
+  { i: "performance", x: 8, y: 12, w: 4, h: 6, minW: 3, minH: 4 },
 ];
 
 export const DASHBOARD_VERSION = 1;
