@@ -1,3 +1,9 @@
+/**
+ * Skeleton — Animated loading placeholder with shimmer effect.
+ *
+ * @usage Set width/height via className or style to match the content it replaces.
+ * @a11y Animation disabled when `prefers-reduced-motion: reduce` is active.
+ */
 import * as React from "react";
 import styles from "./skeleton.module.css";
 import { cn } from "./cn";

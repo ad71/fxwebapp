@@ -13,18 +13,22 @@ export const tokens =
       500: "#5B6675",
       600: "#3C4757",
       700: "#2A3340",
-      900: "#0E141B"
+      900: "#0E141B",
+      "900-rgb": "14, 20, 27"
     },
+    white: "#FFFFFF",
     canvas: "#F6F7FB",
     surface: 
     {
       1: "#FFFFFF",
       2: "#F1F4F9",
-      3: "#E8EDF5"
+      3: "#E8EDF5",
+      hover: "rgba(31, 143, 138, 0.04)"
     },
     border: 
     {
       subtle: "#E2E7F0",
+      "subtle-rgb": "226, 231, 240",
       strong: "#C9D1DD"
     },
     brand: 
@@ -35,29 +39,40 @@ export const tokens =
       400: "#38A6A1",
       500: "#1F8F8A",
       600: "#1A6D69",
-      700: "#155C59"
+      700: "#155C59",
+      "500-rgb": "31, 143, 138",
+      "400-rgb": "56, 166, 161",
+      "300-rgb": "107, 192, 187"
     },
     semantic: 
     {
       success: 
       {
         100: "#E3F6EB",
-        600: "#2E9E5B"
+        600: "#2E9E5B",
+        700: "#237A46",
+        "600-rgb": "46, 158, 91"
       },
       warning: 
       {
         100: "#FFF1DD",
-        600: "#D98A2B"
+        600: "#D98A2B",
+        700: "#B07222",
+        "600-rgb": "217, 138, 43"
       },
       danger: 
       {
         100: "#FDE6E4",
-        600: "#D9544D"
+        600: "#D9544D",
+        700: "#B5403A",
+        "600-rgb": "217, 84, 77"
       },
       info: 
       {
         100: "#E5F0FF",
-        600: "#2F7AD7"
+        600: "#2F7AD7",
+        700: "#2562AC",
+        "600-rgb": "47, 122, 215"
       }
     },
     viz: 
@@ -88,6 +103,7 @@ export const tokens =
     },
     size: 
     {
+      "2xs": 10,
       xs: 12,
       sm: 13,
       md: 14,
@@ -134,13 +150,15 @@ export const tokens =
   {
     4: 4,
     6: 6,
+    8: 8,
     10: 10,
     14: 14,
-    20: 20
+    20: 20,
+    full: "999px"
   },
   elevation: 
   {
-    xs: "0 1px 2px rgba(14, 20, 27, 0.04)",
+    xs: "0 1px 2px rgba(14, 20, 27, 0.03), 0 0 0 1px rgba(14, 20, 27, 0.02)",
     sm: "0 2px 6px rgba(14, 20, 27, 0.06)",
     md: "0 6px 16px rgba(14, 20, 27, 0.08)",
     lg: "0 16px 32px rgba(14, 20, 27, 0.12)"
@@ -154,11 +172,14 @@ export const tokens =
   {
     duration: 
     {
-      120: 120,
-      180: 180,
+      100: 100,
+      150: 150,
+      200: 200,
       240: 240,
       320: 320,
-      560: 560
+      400: 400,
+      560: 560,
+      800: 800
     },
     easing: 
     {
@@ -170,14 +191,15 @@ export const tokens =
   layout: 
   {
     gridColumns: 12,
-    gridGutter: 24,
+    gridGutter: 32,
     contentMax: 1440,
     breakpoints: 
     {
-      1024: 1024,
-      1280: 1280,
-      1440: 1440,
-      1680: 1680
+      sm: 640,
+      md: 1024,
+      lg: 1280,
+      xl: 1440,
+      "2xl": 1680
     }
   },
   zIndex: 

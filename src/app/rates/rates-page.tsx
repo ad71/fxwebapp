@@ -11,15 +11,11 @@ import type { MarketType } from "../../lib/rates/types";
 import styles from "./rates-page.module.css";
 
 function filterPairs(
-  market: "all" | MarketType,
+  market: MarketType,
   search: string,
   group: string,
 ) {
-  let pairs = CURRENCY_PAIRS;
-
-  if (market !== "all") {
-    pairs = pairs.filter((p) => p.market === market);
-  }
+  let pairs = CURRENCY_PAIRS.filter((p) => p.market === market);
 
   if (group !== "All" && PAIR_GROUPS[group]) {
     const groupIds = new Set(PAIR_GROUPS[group]);
@@ -32,8 +28,7 @@ function filterPairs(
       (p) =>
         p.displayName.toLowerCase().includes(q) ||
         p.base.toLowerCase().includes(q) ||
-        p.quote.toLowerCase().includes(q) ||
-        p.market.toLowerCase().includes(q),
+        p.quote.toLowerCase().includes(q),
     );
   }
 
@@ -45,14 +40,13 @@ export function RatesPage() {
   const { rates, isConnected } = useLiveRates(allPairIds);
   const [search, setSearch] = useState("");
   const [activeGroup, setActiveGroup] = useState("All");
-  const [tab, setTab] = useState("all");
+  const [tab, setTab] = useState<MarketType>("offshore");
 
   const groupNames = useMemo(() => Object.keys(PAIR_GROUPS), []);
 
-  const market = tab === "offshore" ? "offshore" : tab === "onshore" ? "onshore" : "all";
   const filtered = useMemo(
-    () => filterPairs(market as "all" | MarketType, search, activeGroup),
-    [market, search, activeGroup],
+    () => filterPairs(tab, search, activeGroup),
+    [tab, search, activeGroup],
   );
 
   return (
@@ -81,19 +75,15 @@ export function RatesPage() {
       </div>
 
       <div className={styles.card}>
-        <Tabs value={tab} onValueChange={setTab}>
+        <Tabs value={tab} onValueChange={(v) => setTab(v as MarketType)}>
           <div className={styles.tabBar}>
             <TabsList>
-              <TabsTrigger value="all">All Markets</TabsTrigger>
               <TabsTrigger value="offshore">Offshore</TabsTrigger>
               <TabsTrigger value="onshore">Onshore</TabsTrigger>
             </TabsList>
           </div>
 
           <div className={styles.tabContent}>
-            <TabsContent value="all">
-              <RatesTable pairs={filtered} rates={rates} />
-            </TabsContent>
             <TabsContent value="offshore">
               <RatesTable pairs={filtered} rates={rates} />
             </TabsContent>

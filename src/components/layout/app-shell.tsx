@@ -1,17 +1,36 @@
+/**
+ * AppShell — Top-level layout wrapper with sticky horizontal navigation bar.
+ *
+ * @usage Wraps all pages. Provides brand header, nav links, search bar,
+ *   notification button, and user profile section. Responsive: collapses
+ *   to hamburger menu below 1024px.
+ */
 "use client";
 
 import * as React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import {
+  LayoutDashboard,
+  TrendingUp,
+  ArrowLeftRight,
+  Compass,
+  Wallet,
+  BarChart3,
+  Search,
+  Bell,
+  ChevronDown,
+  type LucideIcon,
+} from "lucide-react";
 import styles from "./app-shell.module.css";
 
-const NAV_ITEMS = [
-  { label: "DASH", href: "/", icon: "⌂" },
-  { label: "RATES", href: "/rates", icon: "◈" },
-  { label: "TRADE", href: "/trade", icon: "⇄" },
-  { label: "DISCOVER", href: "/discover", icon: "✦" },
-  { label: "WALLET", href: "/wallet", icon: "▤" },
-  { label: "REPORT", href: "/report", icon: "▦" },
+const NAV_ITEMS: { label: string; href: string; icon: LucideIcon }[] = [
+  { label: "DASH", href: "/", icon: LayoutDashboard },
+  { label: "RATES", href: "/rates", icon: TrendingUp },
+  { label: "TRADE", href: "/trade", icon: ArrowLeftRight },
+  { label: "DISCOVER", href: "/discover", icon: Compass },
+  { label: "WALLET", href: "/wallet", icon: Wallet },
+  { label: "REPORT", href: "/report", icon: BarChart3 },
 ];
 
 export const AppShell: React.FC<React.PropsWithChildren> = ({ children }) => {
@@ -51,6 +70,7 @@ export const AppShell: React.FC<React.PropsWithChildren> = ({ children }) => {
                   item.href === "/"
                     ? pathname === "/"
                     : pathname.startsWith(item.href);
+                const Icon = item.icon;
                 return (
                   <Link
                     key={item.href}
@@ -58,7 +78,7 @@ export const AppShell: React.FC<React.PropsWithChildren> = ({ children }) => {
                     className={`${styles.navItem} ${isActive ? styles.navItemActive : ""}`}
                     onClick={() => setMobileNavOpen(false)}
                   >
-                    <span className={styles.navIcon}>{item.icon}</span>
+                    <Icon size={16} strokeWidth={1.75} className={styles.navIcon} />
                     {item.label}
                   </Link>
                 );
@@ -67,21 +87,8 @@ export const AppShell: React.FC<React.PropsWithChildren> = ({ children }) => {
           </div>
 
           <div className={styles.topbarRight}>
-            <div className={styles.search}>
-              <svg
-                className={styles.searchIcon}
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <circle cx="11" cy="11" r="8" />
-                <line x1="21" y1="21" x2="16.65" y2="16.65" />
-              </svg>
+            <div className={styles.search} tabIndex={0}>
+              <Search size={16} strokeWidth={2} className={styles.searchIcon} />
               <span className={styles.searchPlaceholder}>Search...</span>
               <kbd className={styles.searchKbd}>
                 <span>⌘</span>K
@@ -89,19 +96,7 @@ export const AppShell: React.FC<React.PropsWithChildren> = ({ children }) => {
             </div>
 
             <button className={styles.iconButton} aria-label="Notifications">
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
-              </svg>
+              <Bell size={18} strokeWidth={2} />
             </button>
 
             <div className={styles.userSection}>
@@ -109,18 +104,8 @@ export const AppShell: React.FC<React.PropsWithChildren> = ({ children }) => {
                 <span className={styles.userName}>Ritik Bali</span>
                 <span className={styles.userEmail}>ritik@bali.com</span>
               </div>
-              <div className={styles.userAvatar}>
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                >
-                  <path d="M6 9l6 6 6-6" />
-                </svg>
-              </div>
+              <span className={styles.avatarCircle}>RB</span>
+              <ChevronDown size={16} strokeWidth={2} className={styles.userChevron} />
             </div>
           </div>
         </div>

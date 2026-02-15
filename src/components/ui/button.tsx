@@ -1,3 +1,10 @@
+/**
+ * Button — Primary interactive element for all clickable actions.
+ *
+ * @usage Use `primary` for main CTAs, `secondary` for supporting actions,
+ *   `ghost` for subtle/inline actions, `danger` for destructive operations.
+ * @a11y Spinner is `aria-hidden`; button is disabled while loading.
+ */
 import * as React from "react";
 import styles from "./button.module.css";
 import { cn } from "./cn";

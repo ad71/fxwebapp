@@ -3,7 +3,7 @@
 import { memo, useRef, useState, useEffect } from "react";
 import type { CurrencyPairMeta, RateTick } from "../../lib/rates/types";
 import { CurrencyPairCell } from "./currency-pair-cell";
-import { RangeBar } from "./range-bar";
+import { Tooltip } from "../ui/tooltip";
 import styles from "./rates-table.module.css";
 
 interface RateRowProps {
@@ -42,12 +42,23 @@ function formatChangePct(value: number): string {
   return `(${prefix}${value.toFixed(4)}%)`;
 }
 
-function relativeTime(date: Date): string {
-  const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
-  if (seconds < 5) return "just now";
-  if (seconds < 60) return `${seconds}s ago`;
-  const minutes = Math.floor(seconds / 60);
-  return `${minutes}m ago`;
+function formatTimestamp(date: Date): string {
+  const h = date.getHours().toString().padStart(2, "0");
+  const m = date.getMinutes().toString().padStart(2, "0");
+  const s = date.getSeconds().toString().padStart(2, "0");
+  return `${h}:${m}:${s}`;
+}
+
+function formatFullTimestamp(date: Date): string {
+  return (
+    date.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    }) +
+    ", " +
+    formatTimestamp(date)
+  );
 }
 
 function RateRowInner({
@@ -82,11 +93,11 @@ function RateRowInner({
   }, [tick.bid, tick.ask]);
 
   useEffect(() => {
-    const timer = setInterval(() => setTimeRefresh((p) => p + 1), 5000);
+    const timer = setInterval(() => setTimeRefresh((p) => p + 1), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  const isPositive = tick.change24h >= 0;
+  const isPositive = tick.change >= 0;
 
   const rowClass = [
     styles.row,
@@ -145,22 +156,25 @@ function RateRowInner({
       <div className={styles.spreadCol}>{formatSpread(tick.spread)}</div>
 
       <div
-        className={`${styles.changeCol} ${isPositive ? styles.changePositive : styles.changeNegative}`}
+        className={`${styles.changeCol} ${styles.cellSep} ${isPositive ? styles.changePositive : styles.changeNegative}`}
       >
         <span className={styles.changeArrow}>
-          {isPositive ? "\u2197" : "\u2198"}
+          {isPositive ? "\u25B2" : "\u25BC"}
         </span>
-        <span>{formatChange(tick.change24h)}</span>
+        <span>{formatChange(tick.change)}</span>
         <span className={styles.changePct}>
-          {formatChangePct(tick.change24hPct)}
+          {formatChangePct(tick.changePct)}
         </span>
       </div>
 
-      <div className={styles.rangeCol}>
-        <RangeBar low={tick.low24h} high={tick.high24h} current={tick.bid} />
-      </div>
+      <div className={`${styles.ohlcCol} ${styles.cellSep}`}>{formatRate(tick.open, pair)}</div>
+      <div className={styles.ohlcCol}>{formatRate(tick.high, pair)}</div>
+      <div className={styles.ohlcCol}>{formatRate(tick.low, pair)}</div>
+      <div className={styles.ohlcCol}>{formatRate(tick.close, pair)}</div>
 
-      <div className={styles.timeCol}>{relativeTime(tick.lastUpdated)}</div>
+      <Tooltip content={formatFullTimestamp(tick.lastUpdated)}>
+        <div className={`${styles.timeCol} ${styles.cellSep}`}>{formatTimestamp(tick.lastUpdated)}</div>
+      </Tooltip>
     </div>
   );
 }
@@ -169,9 +183,9 @@ export const RateRow = memo(RateRowInner, (prev, next) => {
   return (
     prev.tick.bid === next.tick.bid &&
     prev.tick.ask === next.tick.ask &&
-    prev.tick.change24h === next.tick.change24h &&
-    prev.tick.high24h === next.tick.high24h &&
-    prev.tick.low24h === next.tick.low24h &&
+    prev.tick.change === next.tick.change &&
+    prev.tick.high === next.tick.high &&
+    prev.tick.low === next.tick.low &&
     prev.isDragging === next.isDragging &&
     prev.isDragOver === next.isDragOver
   );

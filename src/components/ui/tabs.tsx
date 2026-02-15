@@ -1,3 +1,11 @@
+/**
+ * Tabs — Switchable content panels with accessible tab interface.
+ *
+ * @usage Supports controlled (`value` + `onValueChange`) and uncontrolled
+ *   (`defaultValue`) modes. Compose with TabsList, TabsTrigger, TabsContent.
+ * @a11y Full ARIA tab pattern: `role="tablist"`, `role="tab"` with
+ *   `aria-selected`, `role="tabpanel"` with `aria-labelledby`.
+ */
 "use client";
 
 import * as React from "react";
@@ -50,7 +58,7 @@ export const Tabs: React.FC<React.PropsWithChildren<TabsProps>> = ({
 export const TabsList: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
   className,
   ...props
-}) => <div className={cn(styles.list, className)} {...props} />;
+}) => <div role="tablist" className={cn(styles.list, className)} {...props} />;
 
 export interface TabsTriggerProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
@@ -72,6 +80,9 @@ export const TabsTrigger: React.FC<TabsTriggerProps> = ({
   return (
     <button
       type="button"
+      role="tab"
+      id={`tab-${value}`}
+      aria-selected={isActive}
       className={cn(styles.trigger, className)}
       data-active={isActive}
       onClick={() => ctx.onChange(value)}
@@ -100,7 +111,7 @@ export const TabsContent: React.FC<TabsContentProps> = ({
     return null;
   }
   return (
-    <div className={cn(styles.content, className)} {...props}>
+    <div role="tabpanel" aria-labelledby={`tab-${value}`} className={cn(styles.content, className)} {...props}>
       {children}
     </div>
   );

@@ -1,3 +1,9 @@
+/**
+ * Badge — Inline status indicator with semantic color variants.
+ *
+ * @usage Use `neutral` for counts/labels, semantic variants (success, warning,
+ *   danger, info) for status. Renders as a pill-shaped `<span>`.
+ */
 import * as React from "react";
 import styles from "./badge.module.css";
 import { cn } from "./cn";

@@ -1,23 +1,24 @@
 .toolbar {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 12px;
+  margin-bottom: var(--spacing-12);
 }
 
 .resetBtn {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 6px 14px;
-  border-radius: 8px;
+  gap: var(--spacing-6);
+  padding: var(--spacing-6) var(--spacing-12);
+  border-radius: var(--radius-8);
   border: 1px solid var(--color-border-strong);
   background: var(--color-surface-1);
-  font-size: 12px;
-  font-weight: 600;
+  font-size: var(--typography-size-xs);
+  font-weight: var(--typography-weight-semibold);
   letter-spacing: 0.03em;
   color: var(--color-ink-700);
   cursor: pointer;
-  transition: background 180ms ease, border-color 180ms ease;
+  transition: background var(--motion-duration-150) var(--motion-easing-standard),
+    border-color var(--motion-duration-150) var(--motion-easing-standard);
 }
 
 .resetBtn:hover {
@@ -33,17 +34,17 @@
 .container :global(.react-grid-item.react-grid-placeholder) {
   background: var(--color-brand-100);
   border: 2px dashed var(--color-brand-300);
-  border-radius: 14px;
+  border-radius: var(--radius-14);
   opacity: 0.6;
 }
 
 .container :global(.react-grid-item.react-draggable-dragging) {
-  box-shadow: 0 8px 24px rgba(14, 20, 27, 0.12);
+  box-shadow: var(--elevation-lg);
   z-index: 10;
 }
 
 .container :global(.react-grid-item) {
-  transition: transform 200ms ease;
+  transition: transform var(--motion-duration-200) var(--motion-easing-standard);
 }
 
 .container :global(.react-grid-item.react-draggable-dragging),
@@ -63,8 +64,8 @@
 
 .skeletonCard {
   background: var(--color-surface-1);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: 14px;
+  border: 1px solid rgba(var(--color-border-subtle-rgb), 0.8);
+  border-radius: var(--radius-14);
   height: 100%;
-  padding: 20px;
+  padding: var(--spacing-20);
 }

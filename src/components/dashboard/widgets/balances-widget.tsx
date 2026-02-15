@@ -1,3 +1,4 @@
+import { Button } from "../../ui/button";
 import shared from "./shared.module.css";
 import styles from "./balances-widget.module.css";
 
@@ -20,7 +21,7 @@ export default function BalancesWidget() {
     <>
       <div className={shared.cardHead}>
         <div />
-        <button className={shared.outlineBtn}>CREATE</button>
+        <Button variant="secondary" size="sm">CREATE</Button>
       </div>
       <div className={styles.balanceList}>
         {balances.map((b) => (

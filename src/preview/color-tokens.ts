@@ -74,6 +74,11 @@ export const colorGroups = [
         "value": "#E8EDF5"
       },
       {
+        "name": "surface-hover",
+        "cssVar": "--color-surface-hover",
+        "value": "rgba(31, 143, 138, 0.04)"
+      },
+      {
         "name": "border-subtle",
         "cssVar": "--color-border-subtle",
         "value": "#E2E7F0"
@@ -122,6 +127,21 @@ export const colorGroups = [
         "name": "brand-700",
         "cssVar": "--color-brand-700",
         "value": "#155C59"
+      },
+      {
+        "name": "brand-500-rgb",
+        "cssVar": "--color-brand-500-rgb",
+        "value": "31, 143, 138"
+      },
+      {
+        "name": "brand-400-rgb",
+        "cssVar": "--color-brand-400-rgb",
+        "value": "56, 166, 161"
+      },
+      {
+        "name": "brand-300-rgb",
+        "cssVar": "--color-brand-300-rgb",
+        "value": "107, 192, 187"
       }
     ]
   },
@@ -139,6 +159,16 @@ export const colorGroups = [
         "value": "#2E9E5B"
       },
       {
+        "name": "semantic-success-700",
+        "cssVar": "--color-semantic-success-700",
+        "value": "#237A46"
+      },
+      {
+        "name": "semantic-success-600-rgb",
+        "cssVar": "--color-semantic-success-600-rgb",
+        "value": "46, 158, 91"
+      },
+      {
         "name": "semantic-warning-100",
         "cssVar": "--color-semantic-warning-100",
         "value": "#FFF1DD"
@@ -147,6 +177,16 @@ export const colorGroups = [
         "name": "semantic-warning-600",
         "cssVar": "--color-semantic-warning-600",
         "value": "#D98A2B"
+      },
+      {
+        "name": "semantic-warning-700",
+        "cssVar": "--color-semantic-warning-700",
+        "value": "#B07222"
+      },
+      {
+        "name": "semantic-warning-600-rgb",
+        "cssVar": "--color-semantic-warning-600-rgb",
+        "value": "217, 138, 43"
       },
       {
         "name": "semantic-danger-100",
@@ -159,6 +199,16 @@ export const colorGroups = [
         "value": "#D9544D"
       },
       {
+        "name": "semantic-danger-700",
+        "cssVar": "--color-semantic-danger-700",
+        "value": "#B5403A"
+      },
+      {
+        "name": "semantic-danger-600-rgb",
+        "cssVar": "--color-semantic-danger-600-rgb",
+        "value": "217, 84, 77"
+      },
+      {
         "name": "semantic-info-100",
         "cssVar": "--color-semantic-info-100",
         "value": "#E5F0FF"
@@ -167,6 +217,16 @@ export const colorGroups = [
         "name": "semantic-info-600",
         "cssVar": "--color-semantic-info-600",
         "value": "#2F7AD7"
+      },
+      {
+        "name": "semantic-info-700",
+        "cssVar": "--color-semantic-info-700",
+        "value": "#2562AC"
+      },
+      {
+        "name": "semantic-info-600-rgb",
+        "cssVar": "--color-semantic-info-600-rgb",
+        "value": "47, 122, 215"
       }
     ]
   },

@@ -1,36 +1,49 @@
 .widget {
   background: var(--color-surface-1);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: 14px;
+  border: 1px solid rgba(var(--color-border-subtle-rgb), 0.8);
+  border-radius: var(--radius-14);
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  box-shadow: 0 1px 3px rgba(14, 20, 27, 0.04);
-  transition: box-shadow 240ms ease;
+  box-shadow: var(--elevation-xs);
+  transition: box-shadow var(--motion-duration-240) var(--motion-easing-standard);
   height: 100%;
+  animation: widgetEnter var(--motion-duration-400) var(--motion-easing-emphasized) both;
+  animation-delay: var(--widget-enter-delay, 0ms);
+}
+
+@keyframes widgetEnter {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .widget {
+    animation: none;
+  }
 }
 
 .widget:hover {
-  box-shadow: 0 2px 8px rgba(14, 20, 27, 0.06);
+  box-shadow: var(--elevation-sm);
 }
 
 .header {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 14px 20px 0;
+  gap: var(--spacing-8);
+  padding: var(--spacing-12) var(--spacing-24) 0;
   flex-shrink: 0;
 }
 
 .dragHandle {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: var(--spacing-2);
   cursor: grab;
-  padding: 4px 2px;
-  border-radius: 4px;
+  padding: var(--spacing-4) var(--spacing-2);
+  border-radius: var(--radius-4);
   color: var(--color-ink-300);
-  transition: color 180ms ease;
+  transition: color var(--motion-duration-100) var(--motion-easing-standard);
   flex-shrink: 0;
 }
 
@@ -45,19 +58,20 @@
 .gripDots {
   display: grid;
   grid-template-columns: repeat(2, 4px);
-  gap: 2px;
+  gap: var(--spacing-2);
 }
 
 .gripDot {
   width: 4px;
   height: 4px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   background: currentColor;
 }
 
 .title {
-  font-size: 15px;
-  font-weight: 600;
+  font-size: var(--typography-size-base);
+  font-weight: var(--typography-weight-semibold);
+  letter-spacing: -0.015em;
   color: var(--color-ink-900);
   margin: 0;
   flex: 1;
@@ -70,5 +84,5 @@
 .body {
   flex: 1;
   overflow: auto;
-  padding: 16px 20px 20px;
+  padding: var(--spacing-16) var(--spacing-24) var(--spacing-20);
 }

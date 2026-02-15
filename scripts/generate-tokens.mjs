@@ -27,6 +27,36 @@ const flatten = (obj, prefix = []) => {
   return rows;
 };
 
+// Categories where numeric values should get `px` units in CSS output
+const PX_CATEGORIES = new Set([
+  "typography-size",
+  "spacing",
+  "radius",
+  "layout-gridGutter",
+  "layout-contentMax",
+  "layout-breakpoints",
+  "table-headerHeight",
+  "table-rowHeightRegular",
+  "table-rowHeightDense",
+  "table-rowHeightSpacious",
+]);
+
+// Categories where numeric values should get `ms` units in CSS output
+const MS_CATEGORIES = new Set(["motion-duration"]);
+
+function getCssUnit(pathParts, value) {
+  if (typeof value !== "number") return "";
+
+  const joined = pathParts.join("-");
+  for (const cat of PX_CATEGORIES) {
+    if (joined.startsWith(cat)) return "px";
+  }
+  for (const cat of MS_CATEGORIES) {
+    if (joined.startsWith(cat)) return "ms";
+  }
+  return "";
+}
+
 const toCssVar = (pathParts) => `--${pathParts.join("-")}`;
 
 const serializeTs = (value, indent = 0) => {
@@ -48,9 +78,11 @@ const serializeTs = (value, indent = 0) => {
   return `\n${pad}{\n${entries.join(",\n")}\n${pad}}`;
 };
 
-const cssLines = flatten(tokens).map(({ path, value }) =>
-  `  ${toCssVar(path)}: ${value};`
-);
+const cssLines = flatten(tokens).map(({ path: p, value }) => {
+  const unit = getCssUnit(p, value);
+  return `  ${toCssVar(p)}: ${value}${unit};`;
+});
+
 const cssHeader = "/* Generated from tokens/tokens.json. Do not edit directly. */";
 const tsHeader = "// Generated from tokens/tokens.json. Do not edit directly.";
 

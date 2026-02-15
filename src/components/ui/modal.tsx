@@ -1,3 +1,12 @@
+/**
+ * Modal — Centered dialog overlay for focused user decisions.
+ *
+ * @usage Use for confirmations, forms, and actions requiring attention.
+ *   Compose body/footer with ModalBody and ModalFooter.
+ *   Prefer Drawer for non-blocking detail views.
+ * @a11y Focus trapped inside dialog; Escape closes; focus restored on unmount.
+ *   Uses `role="dialog"` and `aria-modal="true"`.
+ */
 "use client";
 
 import * as React from "react";
@@ -5,6 +14,7 @@ import { createPortal } from "react-dom";
 import styles from "./overlay.module.css";
 import { cn } from "./cn";
 import { useLockBodyScroll } from "./use-lock-body-scroll";
+import { useFocusTrap } from "./use-focus-trap";
 
 export interface ModalProps {
   open: boolean;
@@ -14,7 +24,29 @@ export interface ModalProps {
 }
 
 export const Modal: React.FC<ModalProps> = ({ open, onOpenChange, title, children }) => {
-  useLockBodyScroll(open);
+  const [visible, setVisible] = React.useState(false);
+  const [stage, setStage] = React.useState<"enter" | "exit" | null>(null);
+  const dialogRef = React.useRef<HTMLDivElement>(null);
+
+  useLockBodyScroll(visible);
+  useFocusTrap(dialogRef, open);
+
+  React.useEffect(() => {
+    if (open) {
+      setVisible(true);
+      // Allow one frame for the DOM to mount with initial styles before transitioning
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setStage("enter"));
+      });
+    } else if (visible) {
+      setStage("exit");
+      const timer = setTimeout(() => {
+        setVisible(false);
+        setStage(null);
+      }, 280);
+      return () => clearTimeout(timer);
+    }
+  }, [open, visible]);
 
   React.useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -28,12 +60,25 @@ export const Modal: React.FC<ModalProps> = ({ open, onOpenChange, title, childre
     return () => document.removeEventListener("keydown", onKeyDown);
   }, [open, onOpenChange]);
 
-  if (!open) return null;
+  if (!visible) return null;
+
+  const overlayClass = cn(
+    styles.overlay,
+    stage === "enter" && styles.overlayEnter,
+    stage === "exit" && styles.overlayExit,
+  );
+
+  const dialogClass = cn(
+    styles.dialog,
+    stage === "enter" && styles.dialogEnter,
+    stage === "exit" && styles.dialogExit,
+  );
 
   return createPortal(
-    <div className={styles.overlay} onClick={() => onOpenChange(false)}>
+    <div className={overlayClass} onClick={() => onOpenChange(false)}>
       <div
-        className={styles.dialog}
+        ref={dialogRef}
+        className={dialogClass}
         role="dialog"
         aria-modal="true"
         onClick={(event) => event.stopPropagation()}

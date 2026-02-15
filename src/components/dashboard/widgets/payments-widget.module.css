@@ -3,12 +3,12 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 32px 16px;
-  gap: 16px;
+  padding: var(--spacing-32) var(--spacing-16);
+  gap: var(--spacing-16);
 }
 
 .emptyText {
-  font-size: 14px;
+  font-size: var(--typography-size-md);
   color: var(--color-ink-500);
   text-align: center;
 }

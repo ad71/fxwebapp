@@ -1,3 +1,9 @@
+/**
+ * useLockBodyScroll — Prevents body scroll when overlays are open.
+ *
+ * Sets `document.body.style.overflow = "hidden"` while `locked` is true.
+ * Restores original overflow on cleanup. Used by Modal and Drawer.
+ */
 "use client";
 
 import * as React from "react";

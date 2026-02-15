@@ -1,20 +1,20 @@
 .button {
   appearance: none;
   border: 1px solid transparent;
-  border-radius: 10px;
-  padding: 9px 18px;
-  font-size: 14px;
-  font-weight: 500;
+  border-radius: var(--radius-8);
+  padding: var(--spacing-8) var(--spacing-20);
+  font-size: var(--typography-size-md);
+  font-weight: var(--typography-weight-medium);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--spacing-8);
   cursor: pointer;
   white-space: nowrap;
-  transition: background 180ms ease,
-    border-color 180ms ease,
-    box-shadow 180ms ease,
-    color 180ms ease;
+  transition: background var(--motion-duration-150) var(--motion-easing-standard),
+    border-color var(--motion-duration-150) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-150) var(--motion-easing-standard),
+    color var(--motion-duration-150) var(--motion-easing-standard);
 }
 
 .button:disabled {
@@ -27,16 +27,16 @@
   outline-offset: 2px;
 }
 
-/* Primary - solid brand like Bound's purple CTA */
+/* Primary - solid brand */
 .primary {
   background: var(--color-brand-500);
-  color: #ffffff;
-  box-shadow: 0 1px 3px rgba(31, 143, 138, 0.2);
+  color: var(--color-white);
+  box-shadow: 0 1px 3px rgba(var(--color-brand-500-rgb), 0.2);
 }
 
 .primary:hover:not(:disabled) {
   background: var(--color-brand-600);
-  box-shadow: 0 2px 8px rgba(31, 143, 138, 0.3);
+  box-shadow: 0 2px 8px rgba(var(--color-brand-500-rgb), 0.3);
 }
 
 .primary:active:not(:disabled) {
@@ -54,7 +54,7 @@
 .secondary:hover:not(:disabled) {
   background: var(--color-surface-2);
   border-color: var(--color-ink-300);
-  box-shadow: 0 1px 3px rgba(14, 20, 27, 0.06);
+  box-shadow: var(--elevation-xs);
 }
 
 .secondary:active:not(:disabled) {
@@ -75,7 +75,7 @@
 /* Danger */
 .danger {
   background: var(--color-semantic-danger-600);
-  color: #ffffff;
+  color: var(--color-white);
 }
 
 .danger:hover:not(:disabled) {
@@ -84,18 +84,18 @@
 
 /* Sizes */
 .sm {
-  padding: 6px 12px;
-  font-size: 13px;
-  border-radius: 8px;
+  padding: var(--spacing-6) var(--spacing-12);
+  font-size: var(--typography-size-sm);
+  border-radius: var(--radius-6);
 }
 
 .md {
-  padding: 9px 18px;
+  padding: var(--spacing-8) var(--spacing-20);
 }
 
 .lg {
-  padding: 12px 24px;
-  font-size: 15px;
+  padding: var(--spacing-12) var(--spacing-24);
+  font-size: var(--typography-size-base);
 }
 
 /* Loading */
@@ -104,11 +104,11 @@
 }
 
 .spinner {
-  width: 16px;
-  height: 16px;
+  width: var(--spacing-16);
+  height: var(--spacing-16);
   border: 2px solid rgba(255, 255, 255, 0.4);
-  border-top-color: #ffffff;
-  border-radius: 999px;
+  border-top-color: var(--color-white);
+  border-radius: var(--radius-full);
   animation: spin 0.7s linear infinite;
 }
 

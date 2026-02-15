@@ -43,6 +43,7 @@ function randomDelta(bid: number): number {
 export class MockRateDataSource implements RateDataSource {
   private snapshot: RateSnapshot = {};
   private openPrices: Record<string, number> = {};
+  private closePrices: Record<string, number> = {};
   private intervalId: ReturnType<typeof setInterval> | null = null;
   private callback: ((snapshot: RateSnapshot) => void) | null = null;
   private subscribedPairs: string[] = [];
@@ -69,7 +70,6 @@ export class MockRateDataSource implements RateDataSource {
 
     onTick({ ...this.snapshot });
 
-    // Fast interval, each pair ticks independently with low probability
     this.intervalId = setInterval(() => {
       this.tick();
     }, 200);
@@ -91,26 +91,37 @@ export class MockRateDataSource implements RateDataSource {
       const spread = spreadForPair(bid);
       const ask = bid + spread;
 
-      const openDelta = (Math.random() - 0.45) * bid * 0.003;
-      const openPrice = bid - openDelta;
-      this.openPrices[pairId] = openPrice;
+      // Previous session close — slight offset from current bid
+      const closeDelta = (Math.random() - 0.48) * bid * 0.002;
+      const close = Number((bid - closeDelta).toFixed(config.decimals));
+      this.closePrices[pairId] = close;
 
-      const change24h = bid - openPrice;
-      const change24hPct = (change24h / openPrice) * 100;
+      // Today's open — derived from close with small gap
+      const openGap = (Math.random() - 0.5) * bid * 0.001;
+      const open = Number((close + openGap).toFixed(config.decimals));
+      this.openPrices[pairId] = open;
 
+      const change = Number((bid - close).toFixed(config.decimals));
+      const changePct = Number(((change / close) * 100).toFixed(4));
+
+      // Session high/low — always encompass current bid and open
       const rangeMagnitude = bid * 0.008;
-      const low24h = bid - Math.random() * rangeMagnitude;
-      const high24h = bid + Math.random() * rangeMagnitude;
+      const sessionMin = Math.min(bid, open);
+      const sessionMax = Math.max(bid, open);
+      const low = Number((sessionMin - Math.random() * rangeMagnitude * 0.4).toFixed(config.decimals));
+      const high = Number((sessionMax + Math.random() * rangeMagnitude * 0.4).toFixed(config.decimals));
 
       this.snapshot[pairId] = {
         pairId,
         bid: Number(bid.toFixed(config.decimals)),
         ask: Number(ask.toFixed(config.decimals)),
         spread: Number(spread.toFixed(config.decimals + 1)),
-        change24h: Number(change24h.toFixed(config.decimals)),
-        change24hPct: Number(change24hPct.toFixed(4)),
-        high24h: Number(high24h.toFixed(config.decimals)),
-        low24h: Number(low24h.toFixed(config.decimals)),
+        open,
+        high,
+        low,
+        close,
+        change,
+        changePct,
         lastUpdated: now,
         bidDirection: "flat",
         askDirection: "flat",
@@ -122,9 +133,6 @@ export class MockRateDataSource implements RateDataSource {
     const now = new Date();
     let changed = false;
 
-    // Each subscribed pair independently has a ~8% chance of ticking
-    // This means on average ~2 pairs tick per 200ms cycle,
-    // but sometimes 0, sometimes 4-5 — organic and random
     for (const pairId of this.subscribedPairs) {
       if (Math.random() > 0.08) continue;
 
@@ -139,22 +147,24 @@ export class MockRateDataSource implements RateDataSource {
       const spread = spreadForPair(newBid);
       const newAsk = Number((newBid + spread).toFixed(config.decimals));
 
-      const openPrice = this.openPrices[pairId];
-      const change24h = Number((newBid - openPrice).toFixed(config.decimals));
-      const change24hPct = Number(((change24h / openPrice) * 100).toFixed(4));
+      const close = this.closePrices[pairId];
+      const change = Number((newBid - close).toFixed(config.decimals));
+      const changePct = Number(((change / close) * 100).toFixed(4));
 
-      const high24h = Math.max(prev.high24h, newBid);
-      const low24h = Math.min(prev.low24h, newBid);
+      const high = Math.max(prev.high, newBid);
+      const low = Math.min(prev.low, newBid);
 
       this.snapshot[pairId] = {
         pairId,
         bid: newBid,
         ask: newAsk,
         spread: Number(spread.toFixed(config.decimals + 1)),
-        change24h,
-        change24hPct,
-        high24h: Number(high24h.toFixed(config.decimals)),
-        low24h: Number(low24h.toFixed(config.decimals)),
+        open: prev.open,
+        high: Number(high.toFixed(config.decimals)),
+        low: Number(low.toFixed(config.decimals)),
+        close,
+        change,
+        changePct,
         lastUpdated: now,
         bidDirection: newBid > prev.bid ? "up" : newBid < prev.bid ? "down" : "flat",
         askDirection: newAsk > prev.ask ? "up" : newAsk < prev.ask ? "down" : "flat",

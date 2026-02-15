@@ -1,3 +1,5 @@
+import { AlertTriangle } from "lucide-react";
+import { Button } from "../../ui/button";
 import shared from "./shared.module.css";
 import styles from "./settlements-widget.module.css";
 
@@ -12,9 +14,10 @@ export default function SettlementsWidget() {
     <>
       <div className={shared.cardHead}>
         <div />
-        <button className={shared.outlineBtn}>VIEW TRADES</button>
+        <Button variant="secondary" size="sm">VIEW TRADES</Button>
       </div>
-      <div className={`${shared.alertBar} ${shared.alertWarning}`}>
+      <div className={`${shared.alertBar} ${shared.alertWarning}`} role="alert">
+        <AlertTriangle size={14} strokeWidth={2} />
         You do not have sufficient funds for tomorrow&apos;s settlements
       </div>
       <div className={styles.settlementRow}>

@@ -1,10 +1,10 @@
 .varValue {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 28px;
-  font-weight: 700;
+  gap: var(--spacing-8);
+  font-size: var(--typography-size-3xl);
+  font-weight: var(--typography-weight-bold);
   color: var(--color-ink-900);
   letter-spacing: -0.02em;
-  margin-top: 4px;
+  margin-top: var(--spacing-4);
 }

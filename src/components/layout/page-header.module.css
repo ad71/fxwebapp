@@ -2,50 +2,50 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 24px;
+  gap: var(--spacing-16);
+  margin-bottom: var(--spacing-32);
 }
 
 .text {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: var(--spacing-4);
 }
 
 .kicker {
-  font-size: 12px;
+  font-size: var(--typography-size-xs);
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  font-weight: 600;
+  font-weight: var(--typography-weight-semibold);
   color: var(--color-ink-400);
 }
 
 .title {
-  font-size: 24px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-size: var(--typography-size-3xl);
+  font-weight: var(--typography-weight-bold);
+  letter-spacing: -0.025em;
   margin: 0;
   color: var(--color-ink-900);
 }
 
 .description {
-  font-size: 14px;
+  font-size: var(--typography-size-md);
   color: var(--color-ink-500);
   margin: 0;
-  line-height: 1.5;
+  line-height: var(--typography-lineHeight-normal);
 }
 
 .actions {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: var(--spacing-8);
 }
 
 .meta {
-  margin-top: 12px;
+  margin-top: var(--spacing-12);
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: var(--spacing-8);
   color: var(--color-ink-400);
-  font-size: 12px;
+  font-size: var(--typography-size-xs);
 }

@@ -1,3 +1,9 @@
+/**
+ * PageHeader — Page-level heading with optional description, kicker, and actions.
+ *
+ * @usage Place at the top of page content. Use `kicker` for a small label above
+ *   the title, `actions` for buttons aligned to the right.
+ */
 import * as React from "react";
 import styles from "./page-header.module.css";
 

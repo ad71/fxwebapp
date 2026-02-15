@@ -1,3 +1,10 @@
+/**
+ * Table — Semantic HTML table with composable sub-components.
+ *
+ * @usage Compose with TableHead, TableBody, TableRow, TableHeaderCell, TableCell.
+ *   Financial columns should use `fontFamily-mono` and right-align.
+ * @a11y Header cells use `scope="col"` for screen reader association.
+ */
 import * as React from "react";
 import styles from "./table.module.css";
 import { cn } from "./cn";
@@ -34,7 +41,7 @@ export const TableHeaderCell = React.forwardRef<
   HTMLTableCellElement,
   React.ThHTMLAttributes<HTMLTableCellElement>
 >(({ className, ...props }, ref) => (
-  <th ref={ref} className={cn(styles.headerCell, className)} {...props} />
+  <th ref={ref} scope="col" className={cn(styles.headerCell, className)} {...props} />
 ));
 TableHeaderCell.displayName = "TableHeaderCell";
 

@@ -60,9 +60,9 @@ export function WidgetGrid({ dashboardId }: { dashboardId: string }) {
             dragConfig={{ enabled: true, handle: ".widget-drag-handle", bounded: false, threshold: 3 }}
             onLayoutChange={(layout) => onLayoutChange(layout)}
           >
-            {state.widgets.map((w) => (
+            {state.widgets.map((w, i) => (
               <div key={w.id}>
-                <Widget title={w.title}>
+                <Widget title={w.title} style={{ "--widget-enter-delay": `${i * 60}ms` } as React.CSSProperties}>
                   <WidgetContent type={w.type} />
                 </Widget>
               </div>

@@ -22,6 +22,7 @@ These tokens define the product’s visual language. Values are calibrated for c
 - surface-1: #FFFFFF
 - surface-2: #F1F4F9
 - surface-3: #E8EDF5
+- surface-hover: rgba(31, 143, 138, 0.04)
 - border-subtle: #E2E7F0
 - border-strong: #C9D1DD
 
@@ -33,16 +34,27 @@ These tokens define the product’s visual language. Values are calibrated for c
 - brand-300: #6BC0BB
 - brand-200: #B2E1DE
 - brand-100: #E6F6F5
+- brand-500-rgb: 31, 143, 138
+- brand-400-rgb: 56, 166, 161
+- brand-300-rgb: 107, 192, 187
 
 ### Semantic
-- success-600: #2E9E5B
 - success-100: #E3F6EB
-- warning-600: #D98A2B
+- success-600: #2E9E5B
+- success-700: #237A46
+- success-600-rgb: 46, 158, 91
 - warning-100: #FFF1DD
-- danger-600: #D9544D
+- warning-600: #D98A2B
+- warning-700: #B07222
+- warning-600-rgb: 217, 138, 43
 - danger-100: #FDE6E4
-- info-600: #2F7AD7
+- danger-600: #D9544D
+- danger-700: #B5403A
+- danger-600-rgb: 217, 84, 77
 - info-100: #E5F0FF
+- info-600: #2F7AD7
+- info-700: #2562AC
+- info-600-rgb: 47, 122, 215
 
 ### Data Viz Palette
 - viz-1: #1F8F8A
@@ -99,9 +111,11 @@ Scale (px)
 
 - r-4: 4
 - r-6: 6
+- r-8: 8
 - r-10: 10
 - r-14: 14
 - r-20: 20
+- r-full: 999px
 
 ---
 
@@ -124,7 +138,7 @@ Scale (px)
 ## Motion
 
 Durations (ms)
-- 120, 180, 240, 320, 560
+- 100, 150, 200, 240, 320, 560
 
 Easings
 - standard: cubic-bezier(0.2, 0.0, 0.2, 1.0)
@@ -140,7 +154,7 @@ Easings
 - content-max: 1440
 
 Breakpoints (px)
-- 1024, 1280, 1440, 1680
+- sm: 640, md: 1024, lg: 1280, xl: 1440, 2xl: 1680
 
 ---
 

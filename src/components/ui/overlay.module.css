@@ -1,49 +1,77 @@
+/* ── Overlay backdrop ── */
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(14, 20, 27, 0.35);
+  background: rgba(var(--color-ink-900-rgb), 0.35);
   backdrop-filter: blur(4px);
-  z-index: 40;
+  z-index: var(--zIndex-overlay);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: var(--spacing-24);
+  opacity: 0;
+  transition: opacity 200ms var(--motion-easing-standard);
 }
 
+.overlayEnter {
+  opacity: 1;
+}
+
+.overlayExit {
+  opacity: 0;
+}
+
+/* ── Modal dialog ── */
 .dialog {
   background: var(--color-surface-1);
-  border-radius: 16px;
+  border-radius: var(--radius-14);
   border: 1px solid var(--color-border-subtle);
-  box-shadow: 0 16px 48px rgba(14, 20, 27, 0.15);
+  box-shadow: var(--elevation-lg);
   max-width: 560px;
   width: 100%;
   max-height: 85vh;
   overflow: auto;
+  transform: scale(0.95);
+  opacity: 0;
+  transition: transform 280ms var(--motion-easing-emphasized),
+    opacity 280ms var(--motion-easing-emphasized);
+}
+
+.dialogEnter {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.dialogExit {
+  transform: scale(0.97);
+  opacity: 0;
+  transition-duration: 200ms;
 }
 
 .header {
-  padding: 20px 24px 14px;
+  padding: var(--spacing-20) var(--spacing-24) var(--spacing-12);
   border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .title {
   margin: 0;
-  font-size: 18px;
-  font-weight: 600;
+  font-size: var(--typography-size-lg);
+  font-weight: var(--typography-weight-semibold);
   letter-spacing: -0.01em;
 }
 
 .body {
-  padding: 16px 24px;
+  padding: var(--spacing-16) var(--spacing-24);
 }
 
 .footer {
-  padding: 14px 24px 20px;
+  padding: var(--spacing-12) var(--spacing-24) var(--spacing-20);
   display: flex;
-  gap: 8px;
+  gap: var(--spacing-8);
   justify-content: flex-end;
 }
 
+/* ── Drawer ── */
 .drawer {
   position: fixed;
   top: 0;
@@ -52,27 +80,49 @@
   width: min(520px, 90vw);
   background: var(--color-surface-1);
   border-left: 1px solid var(--color-border-subtle);
-  box-shadow: -8px 0 32px rgba(14, 20, 27, 0.1);
-  z-index: 50;
+  box-shadow: -8px 0 32px rgba(var(--color-ink-900-rgb), 0.1);
+  z-index: var(--zIndex-modal);
   display: flex;
   flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 320ms var(--motion-easing-emphasized);
+}
+
+.drawerEnter {
+  transform: translateX(0);
+}
+
+.drawerExit {
+  transform: translateX(100%);
+  transition-duration: 240ms;
 }
 
 .drawerHeader {
-  padding: 20px 24px 14px;
+  padding: var(--spacing-20) var(--spacing-24) var(--spacing-12);
   border-bottom: 1px solid var(--color-border-subtle);
 }
 
 .drawerBody {
-  padding: 16px 24px;
+  padding: var(--spacing-16) var(--spacing-24);
   overflow: auto;
   flex: 1;
 }
 
 .drawerFooter {
-  padding: 14px 24px;
+  padding: var(--spacing-12) var(--spacing-24);
   border-top: 1px solid var(--color-border-subtle);
   display: flex;
   justify-content: flex-end;
-  gap: 8px;
+  gap: var(--spacing-8);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay,
+  .dialog,
+  .drawer {
+    transition: none;
+  }
+  .overlayEnter { opacity: 1; }
+  .dialogEnter { transform: scale(1); opacity: 1; }
+  .drawerEnter { transform: translateX(0); }
 }

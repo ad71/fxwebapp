@@ -14,10 +14,12 @@ export interface RateTick {
   bid: number;
   ask: number;
   spread: number;
-  change24h: number;
-  change24hPct: number;
-  high24h: number;
-  low24h: number;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  change: number;
+  changePct: number;
   lastUpdated: Date;
   bidDirection: "up" | "down" | "flat";
   askDirection: "up" | "down" | "flat";

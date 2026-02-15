@@ -1,3 +1,9 @@
+/**
+ * Card — Composite container for grouped content.
+ *
+ * @usage Compose with CardHeader, CardTitle, CardDescription, CardBody, CardFooter.
+ *   Use for dashboard widgets, settings panels, and any boxed content section.
+ */
 import * as React from "react";
 import styles from "./card.module.css";
 import { cn } from "./cn";

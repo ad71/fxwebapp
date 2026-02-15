@@ -1,3 +1,10 @@
+/**
+ * Tooltip — Non-interactive overlay that appears on hover/focus.
+ *
+ * @usage Wrap any element; pass `content` string for the tooltip text.
+ *   Use for supplementary info, not critical content.
+ * @a11y Uses `role="tooltip"`. Visible on both hover and keyboard focus.
+ */
 import * as React from "react";
 import styles from "./tooltip.module.css";
 import { cn } from "./cn";

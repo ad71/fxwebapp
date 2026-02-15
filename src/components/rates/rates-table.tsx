@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useCallback, useEffect, useRef } from "react";
+import { SearchX } from "lucide-react";
 import type { CurrencyPairMeta, RateSnapshot } from "../../lib/rates/types";
 import { RateRow } from "./rate-row";
 import styles from "./rates-table.module.css";
@@ -111,9 +112,12 @@ export function RatesTable({ pairs, rates }: RatesTableProps) {
         <span>Bid</span>
         <span>Ask</span>
         <span>Spread</span>
-        <span>24h Change</span>
-        <span>Range</span>
-        <span>Updated</span>
+        <span className={styles.headerSep}>Day Change</span>
+        <span className={`${styles.headerSep} ${styles.headerOhlc}`}>Open</span>
+        <span className={styles.headerOhlc}>High</span>
+        <span className={styles.headerOhlc}>Low</span>
+        <span className={styles.headerOhlc}>Close</span>
+        <span className={styles.headerSep}>Updated</span>
       </div>
       <div className={styles.body}>
         {orderedPairs.map((pair) => {
@@ -135,7 +139,9 @@ export function RatesTable({ pairs, rates }: RatesTableProps) {
         })}
         {orderedPairs.length === 0 && (
           <div className={styles.empty}>
-            No currency pairs match your search.
+            <SearchX size={40} strokeWidth={1.25} className={styles.emptyIcon} />
+            <p className={styles.emptyTitle}>No currency pairs found</p>
+            <p className={styles.emptyHint}>Try adjusting your search or filters.</p>
           </div>
         )}
       </div>

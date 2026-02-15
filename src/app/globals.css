@@ -41,7 +41,7 @@ button, input, select, textarea {
 }
 
 ::selection {
-  background: rgba(31, 143, 138, 0.15);
+  background: rgba(var(--color-brand-500-rgb), 0.15);
   color: var(--color-ink-900);
 }
 
@@ -67,4 +67,16 @@ button, input, select, textarea {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-ink-300);
+}
+
+/* ── Motion foundation ── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

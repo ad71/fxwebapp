@@ -1,41 +1,41 @@
 .badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 3px 10px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 500;
+  gap: var(--spacing-4);
+  padding: var(--spacing-4) var(--spacing-12);
+  border-radius: var(--radius-full);
+  font-size: var(--typography-size-xs);
+  font-weight: var(--typography-weight-medium);
   border: 1px solid transparent;
   white-space: nowrap;
 }
 
 .neutral {
   background: var(--color-surface-2);
-  color: var(--color-ink-600);
+  color: var(--color-ink-700);
   border-color: var(--color-border-subtle);
 }
 
 .success {
   background: var(--color-semantic-success-100);
   color: var(--color-semantic-success-600);
-  border-color: rgba(46, 158, 91, 0.15);
+  border-color: rgba(var(--color-semantic-success-600-rgb), 0.15);
 }
 
 .warning {
   background: var(--color-semantic-warning-100);
   color: var(--color-semantic-warning-600);
-  border-color: rgba(217, 138, 43, 0.15);
+  border-color: rgba(var(--color-semantic-warning-600-rgb), 0.15);
 }
 
 .danger {
   background: var(--color-semantic-danger-100);
   color: var(--color-semantic-danger-600);
-  border-color: rgba(217, 84, 77, 0.15);
+  border-color: rgba(var(--color-semantic-danger-600-rgb), 0.15);
 }
 
 .info {
   background: var(--color-semantic-info-100);
   color: var(--color-semantic-info-600);
-  border-color: rgba(47, 122, 215, 0.15);
+  border-color: rgba(var(--color-semantic-info-600-rgb), 0.15);
 }

@@ -1,16 +1,16 @@
 .rangeContainer {
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: var(--spacing-4);
 }
 
 .labels {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--spacing-4);
   font-family: var(--typography-fontFamily-mono);
-  font-size: 11px;
-  font-weight: 500;
+  font-size: var(--typography-size-xs);
+  font-weight: var(--typography-weight-medium);
   color: var(--color-ink-600);
   line-height: 1;
 }
@@ -39,7 +39,7 @@
   height: 100%;
   background: var(--color-brand-300);
   border-radius: 2px;
-  transition: width 400ms ease;
+  transition: width var(--motion-duration-400) var(--motion-easing-standard);
 }
 
 .dot {
@@ -48,8 +48,8 @@
   width: 7px;
   height: 7px;
   background: var(--color-brand-500);
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   transform: translate(-50%, -50%);
-  transition: left 400ms ease;
+  transition: left var(--motion-duration-400) var(--motion-easing-standard);
   box-shadow: 0 0 0 2px var(--color-surface-1);
 }

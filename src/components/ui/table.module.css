@@ -1,7 +1,7 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  font-size: 13px;
+  font-size: var(--typography-size-sm);
   background: var(--color-surface-1);
 }
 
@@ -10,27 +10,31 @@
 }
 
 .row {
-  border-bottom: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid rgba(var(--color-border-subtle-rgb), 0.6);
+}
+
+.row:last-child {
+  border-bottom: none;
 }
 
 .cell,
 .headerCell {
-  padding: 10px 14px;
+  padding: var(--spacing-8) var(--spacing-16);
   text-align: left;
 }
 
 .headerCell {
-  font-weight: 600;
-  font-size: 11px;
+  font-weight: var(--typography-weight-semibold);
+  font-size: var(--typography-size-xs);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   color: var(--color-ink-500);
 }
 
 .bodyRow {
-  transition: background 120ms ease;
+  transition: background var(--motion-duration-100) var(--motion-easing-standard);
 }
 
 .bodyRow:hover {
-  background: rgba(31, 143, 138, 0.04);
+  background: var(--table-rowHover);
 }

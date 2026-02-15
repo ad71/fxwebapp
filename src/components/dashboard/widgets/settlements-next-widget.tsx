@@ -1,3 +1,5 @@
+import { Info } from "lucide-react";
+import { Button } from "../../ui/button";
 import shared from "./shared.module.css";
 import styles from "./settlements-widget.module.css";
 
@@ -11,9 +13,10 @@ export default function SettlementsNextWidget() {
     <>
       <div className={shared.cardHead}>
         <div />
-        <button className={shared.outlineBtn}>VIEW TRADES</button>
+        <Button variant="secondary" size="sm">VIEW TRADES</Button>
       </div>
-      <div className={`${shared.alertBar} ${shared.alertInfo}`}>
+      <div className={`${shared.alertBar} ${shared.alertInfo}`} role="alert">
+        <Info size={14} strokeWidth={2} />
         You have unfinished trades and these figures are incomplete.
       </div>
       <div className={styles.settlementRow}>

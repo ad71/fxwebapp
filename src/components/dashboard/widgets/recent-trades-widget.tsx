@@ -1,3 +1,4 @@
+import { Button } from "../../ui/button";
 import shared from "./shared.module.css";
 import styles from "./recent-trades-widget.module.css";
 
@@ -55,7 +56,7 @@ export default function RecentTradesWidget() {
     <>
       <div className={shared.cardHead}>
         <div />
-        <button className={shared.outlineBtn}>VIEW ALL</button>
+        <Button variant="secondary" size="sm">VIEW ALL</Button>
       </div>
       <div className={styles.tradeTable}>
         <div className={styles.tradeTableHead}>

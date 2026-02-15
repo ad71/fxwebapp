@@ -5,19 +5,30 @@
 
 .tooltip {
   position: absolute;
-  bottom: calc(100% + 8px);
+  bottom: calc(100% + var(--spacing-8));
   left: 50%;
   transform: translateX(-50%) translateY(4px);
   background: var(--color-ink-900);
-  color: #ffffff;
-  font-size: 12px;
-  padding: 6px 10px;
-  border-radius: 8px;
+  color: var(--color-white);
+  font-size: var(--typography-size-xs);
+  padding: var(--spacing-6) var(--spacing-8);
+  border-radius: var(--radius-8);
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 150ms ease, transform 150ms ease;
-  box-shadow: 0 4px 12px rgba(14, 20, 27, 0.15);
+  transition: opacity var(--motion-duration-200) var(--motion-easing-standard),
+    transform var(--motion-duration-200) var(--motion-easing-standard);
+  box-shadow: var(--elevation-md);
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: var(--color-ink-900);
 }
 
 .wrapper:hover .tooltip,
