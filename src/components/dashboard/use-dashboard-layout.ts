@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
-import type { Layout } from "react-grid-layout";
-import type { DashboardState } from "./widget-types";
+import { useState, useCallback, useEffect, useRef } from "react";
+import type { DashboardLayout, DashboardState } from "./widget-types";
 import { getDefaultState, DASHBOARD_VERSION } from "./default-layouts";
+
+const PERSIST_DELAY = 500;
 
 function storageKey(dashboardId: string) {
   return `dashboard-layout-${dashboardId}`;
@@ -27,13 +28,23 @@ export function useDashboardLayout(dashboardId: string) {
   const [state, setState] = useState<DashboardState>(() =>
     loadState(dashboardId)
   );
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  // Debounced persist to localStorage
   useEffect(() => {
     if (typeof window === "undefined") return;
-    localStorage.setItem(storageKey(dashboardId), JSON.stringify(state));
+
+    if (timerRef.current) clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => {
+      localStorage.setItem(storageKey(dashboardId), JSON.stringify(state));
+    }, PERSIST_DELAY);
+
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
   }, [dashboardId, state]);
 
-  const onLayoutChange = useCallback((layouts: Layout) => {
+  const onLayoutChange = useCallback((layouts: DashboardLayout) => {
     setState((prev) => ({ ...prev, layouts }));
   }, []);
 

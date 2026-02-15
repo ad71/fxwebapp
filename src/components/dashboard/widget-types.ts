@@ -1,5 +1,8 @@
 import type { Layout } from "react-grid-layout";
 
+/** Layout is already `readonly LayoutItem[]` in react-grid-layout v2. */
+export type DashboardLayout = Layout;
+
 export type WidgetType =
   | "settlements-tomorrow"
   | "settlements-next"
@@ -21,7 +24,7 @@ export interface WidgetConfig {
 }
 
 export interface DashboardState {
-  layouts: Layout;
+  layouts: DashboardLayout;
   widgets: WidgetConfig[];
   version: number;
 }

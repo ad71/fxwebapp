@@ -1,5 +1,4 @@
-import type { Layout } from "react-grid-layout";
-import type { WidgetConfig, DashboardState } from "./widget-types";
+import type { WidgetConfig, DashboardLayout, DashboardState } from "./widget-types";
 
 export const DEFAULT_WIDGETS: WidgetConfig[] = [
   { id: "settlements-tomorrow", type: "settlements-tomorrow", title: "Tomorrow's settlements", minW: 3, minH: 3 },
@@ -12,7 +11,7 @@ export const DEFAULT_WIDGETS: WidgetConfig[] = [
   { id: "performance", type: "performance", title: "Performance", minW: 3, minH: 4 },
 ];
 
-export const DEFAULT_LAYOUTS: Layout = [
+export const DEFAULT_LAYOUTS: DashboardLayout = [
   { i: "settlements-tomorrow", x: 0, y: 0, w: 5, h: 4, minW: 3, minH: 3 },
   { i: "settlements-next", x: 5, y: 0, w: 4, h: 4, minW: 3, minH: 3 },
   { i: "var", x: 9, y: 0, w: 3, h: 4, minW: 2, minH: 3 },

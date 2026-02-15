@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import type { RateSnapshot } from "./types";
 import type { RateDataSource } from "./data-source";
 import { createDataSource } from "./create-data-source";
@@ -16,13 +16,16 @@ export function useLiveRates(pairIds: string[]) {
     setLastTick(new Date());
   }, []);
 
+  // Stable serialized key so the effect only re-runs when the actual set changes
+  const pairKey = useMemo(() => [...pairIds].sort().join(","), [pairIds]);
+
   useEffect(() => {
     const source = createDataSource("mock");
     sourceRef.current = source;
 
     source.connect();
     setIsConnected(true);
-    source.subscribe(pairIds, handleTick);
+    source.subscribe(pairKey.split(","), handleTick);
 
     return () => {
       source.unsubscribe();
@@ -30,8 +33,7 @@ export function useLiveRates(pairIds: string[]) {
       setIsConnected(false);
       sourceRef.current = null;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [pairKey, handleTick]);
 
   return { rates, isConnected, lastTick };
 }

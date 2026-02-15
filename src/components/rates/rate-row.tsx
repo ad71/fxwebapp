@@ -77,7 +77,6 @@ function RateRowInner({
   const [askAnim, setAskAnim] = useState(0);
   const [bidDir, setBidDir] = useState<"up" | "down" | "flat">("flat");
   const [askDir, setAskDir] = useState<"up" | "down" | "flat">("flat");
-  const [, setTimeRefresh] = useState(0);
 
   useEffect(() => {
     if (tick.bid !== prevBidRef.current) {
@@ -91,11 +90,6 @@ function RateRowInner({
       prevAskRef.current = tick.ask;
     }
   }, [tick.bid, tick.ask]);
-
-  useEffect(() => {
-    const timer = setInterval(() => setTimeRefresh((p) => p + 1), 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   const isPositive = tick.change >= 0;
 
@@ -186,6 +180,7 @@ export const RateRow = memo(RateRowInner, (prev, next) => {
     prev.tick.change === next.tick.change &&
     prev.tick.high === next.tick.high &&
     prev.tick.low === next.tick.low &&
+    prev.tick.lastUpdated === next.tick.lastUpdated &&
     prev.isDragging === next.isDragging &&
     prev.isDragOver === next.isDragOver
   );
