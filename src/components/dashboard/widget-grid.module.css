@@ -62,6 +62,29 @@
   border-bottom-color: var(--color-ink-300);
 }
 
+/* ── Mobile: single column, disable drag ── */
+@media (max-width: 768px) {
+  .container :global(.react-grid-item) {
+    width: 100% !important;
+    left: 0 !important;
+  }
+
+  .container :global(.react-resizable-handle) {
+    display: none;
+  }
+}
+
+@media (hover: none) {
+  .container :global(.react-grid-item .widget-drag-handle) {
+    cursor: default;
+  }
+
+  .resetBtn {
+    min-height: 44px;
+    padding: var(--spacing-8) var(--spacing-16);
+  }
+}
+
 .skeletonCard {
   background: var(--color-surface-1);
   border: 1px solid rgba(var(--color-border-subtle-rgb), 0.8);

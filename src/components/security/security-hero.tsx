@@ -62,7 +62,10 @@ export function SecurityHero({
   }
 
   return (
-    <div className={styles.hero}>
+    <div
+      className={styles.hero}
+      style={{ viewTransitionName: `rate-row-${pair.id}` } as React.CSSProperties}
+    >
       <div className={styles.top}>
         <div className={styles.identity}>
           <span className={styles.flag}>{pair.flag}</span>

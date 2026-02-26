@@ -42,7 +42,7 @@
 /* ── Sticky condensed hero ── */
 .stickyHero {
   position: sticky;
-  top: var(--topbar-height, 56px);
+  top: var(--topbar-height);
   z-index: 50;
 }
 
@@ -51,10 +51,37 @@
   margin: var(--spacing-8) 0;
 }
 
+/* ── Section entrance animation ── */
+@keyframes sectionEnter {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ── Sections ── */
 .section {
-  padding-top: var(--spacing-24);
+  padding-top: var(--spacing-32);
   scroll-margin-top: 140px;
+  opacity: 0;
+}
+
+.sectionVisible {
+  animation: sectionEnter var(--motion-duration-400) var(--motion-easing-emphasized) forwards;
+  animation-delay: var(--section-delay, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section {
+    opacity: 1;
+  }
+  .sectionVisible {
+    animation: none;
+  }
 }
 
 .sectionTitle {
@@ -109,5 +136,19 @@
 @media (max-width: 768px) {
   .page {
     padding: var(--spacing-16);
+    gap: var(--spacing-4);
+  }
+
+  .section {
+    padding-top: var(--spacing-20);
+    scroll-margin-top: 120px;
+  }
+
+  .toolsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .breadcrumb {
+    margin-bottom: var(--spacing-4);
   }
 }

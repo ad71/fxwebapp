@@ -51,18 +51,20 @@
   border-bottom: 1px solid rgba(var(--color-border-subtle-rgb), 0.6);
 }
 
-/* ── Data rows ── */
+/* ── Data rows — pillar tenors get a solid left accent ── */
 .dataRow {
   transition: background var(--motion-duration-100) var(--motion-easing-standard);
+  border-left: 2px solid var(--color-brand-300);
 }
 
 .dataRow:hover {
   background: var(--color-surface-2);
 }
 
-/* ── Month-end rows: lighter bg + indent ── */
+/* ── Month-end rows: dashed left border + lighter bg ── */
 .monthEndRow {
   background: var(--color-surface-2);
+  border-left: 2px dashed var(--color-ink-200);
 }
 
 .monthEndRow:hover {

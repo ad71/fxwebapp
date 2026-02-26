@@ -38,6 +38,34 @@
   font-weight: var(--typography-weight-semibold);
   color: var(--color-ink-900);
   text-align: right;
+  padding: var(--spacing-2) var(--spacing-4);
+  border-radius: var(--radius-4);
+}
+
+/* ── Flash animations (reuse rates-table pattern) ── */
+@keyframes flashUp {
+  0% { background-color: rgba(var(--color-semantic-success-600-rgb), 0.2); }
+  100% { background-color: transparent; }
+}
+
+@keyframes flashDown {
+  0% { background-color: rgba(var(--color-semantic-danger-600-rgb), 0.2); }
+  100% { background-color: transparent; }
+}
+
+.bidFlashUp {
+  animation: flashUp var(--motion-duration-800) var(--motion-easing-decel);
+}
+
+.bidFlashDown {
+  animation: flashDown var(--motion-duration-800) var(--motion-easing-decel);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bidFlashUp,
+  .bidFlashDown {
+    animation: none;
+  }
 }
 
 .changePositive {

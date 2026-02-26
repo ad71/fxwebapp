@@ -7,11 +7,13 @@ import {
   CrosshairMode,
   CandlestickSeries,
   LineSeries,
+  AreaSeries,
 } from "lightweight-charts";
-import type { IChartApi, ISeriesApi, CandlestickData, LineData, Time } from "lightweight-charts";
+import type { IChartApi, ISeriesApi, CandlestickData, LineData, AreaData, Time } from "lightweight-charts";
 import type { HistoricalCandle } from "../../lib/security/types";
 import { SegmentedControl } from "../ui/segmented-control";
 import { filterCandlesByRange } from "../../lib/security/mock-historical";
+import { useTheme } from "../theme/theme-provider";
 import styles from "./historical-chart.module.css";
 
 interface HistoricalChartProps {
@@ -53,6 +55,7 @@ function computeSMA(data: HistoricalCandle[], period: number): LineData<Time>[] 
 export function HistoricalChart({ candles, pairId }: HistoricalChartProps) {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const chartRef = React.useRef<IChartApi | null>(null);
+  const { resolved: themeMode } = useTheme();
 
   const [range, setRange] = React.useState("1Y");
   const [chartType, setChartType] = React.useState("candlestick");
@@ -73,25 +76,30 @@ export function HistoricalChart({ candles, pairId }: HistoricalChartProps) {
     const el = containerRef.current;
     if (!el) return;
 
+    const isDark = themeMode === "dark";
+    const textColor = isDark ? "#8E96AA" : "#3C4757";
+    const gridColor = isDark ? "rgba(62, 68, 96, 0.25)" : "rgba(197, 203, 215, 0.15)";
+    const borderColor = isDark ? "rgba(62, 68, 96, 0.4)" : "rgba(197, 203, 215, 0.3)";
+
     const chart = createChart(el, {
       layout: {
         background: { type: ColorType.Solid, color: "transparent" },
-        textColor: "#3C4757",
+        textColor,
         fontFamily: "monospace",
         fontSize: 11,
       },
       grid: {
-        vertLines: { color: "rgba(197, 203, 215, 0.15)" },
-        horzLines: { color: "rgba(197, 203, 215, 0.15)" },
+        vertLines: { color: gridColor },
+        horzLines: { color: gridColor },
       },
       crosshair: {
         mode: CrosshairMode.Normal,
       },
       rightPriceScale: {
-        borderColor: "rgba(197, 203, 215, 0.3)",
+        borderColor,
       },
       timeScale: {
-        borderColor: "rgba(197, 203, 215, 0.3)",
+        borderColor,
         timeVisible: false,
       },
       handleScroll: true,
@@ -101,14 +109,18 @@ export function HistoricalChart({ candles, pairId }: HistoricalChartProps) {
     chartRef.current = chart;
 
     // Main series
+    const upColor = isDark ? "#3BB76B" : "#2E9E5B";
+    const downColor = isDark ? "#E76B63" : "#D9544D";
+    const lineColor = isDark ? "#3AADA7" : "#1F8F8A";
+
     if (chartType === "candlestick") {
       const series = chart.addSeries(CandlestickSeries, {
-        upColor: "#2E9E5B",
-        downColor: "#D9544D",
-        borderUpColor: "#2E9E5B",
-        borderDownColor: "#D9544D",
-        wickUpColor: "#2E9E5B",
-        wickDownColor: "#D9544D",
+        upColor,
+        downColor,
+        borderUpColor: upColor,
+        borderDownColor: downColor,
+        wickUpColor: upColor,
+        wickDownColor: downColor,
       });
       const data: CandlestickData<Time>[] = filteredCandles.map((c) => ({
         time: c.date as Time,
@@ -119,14 +131,16 @@ export function HistoricalChart({ candles, pairId }: HistoricalChartProps) {
       }));
       series.setData(data);
     } else {
-      const series = chart.addSeries(LineSeries, {
-        color: "#1F8F8A",
+      const series = chart.addSeries(AreaSeries, {
+        lineColor,
+        topColor: isDark ? "rgba(58, 173, 167, 0.28)" : "rgba(31, 143, 138, 0.28)",
+        bottomColor: isDark ? "rgba(58, 173, 167, 0.02)" : "rgba(31, 143, 138, 0.02)",
         lineWidth: 2,
         crosshairMarkerVisible: true,
         lastValueVisible: true,
         priceLineVisible: false,
       });
-      const data: LineData<Time>[] = filteredCandles.map((c) => ({
+      const data: AreaData<Time>[] = filteredCandles.map((c) => ({
         time: c.date as Time,
         value: c.close,
       }));
@@ -164,7 +178,7 @@ export function HistoricalChart({ candles, pairId }: HistoricalChartProps) {
       chart.remove();
       chartRef.current = null;
     };
-  }, [filteredCandles, chartType, activeMAs, pairId]);
+  }, [filteredCandles, chartType, activeMAs, pairId, themeMode]);
 
   return (
     <div className={styles.container}>

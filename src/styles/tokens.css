@@ -1,5 +1,6 @@
 /* Generated from tokens/tokens.json. Do not edit directly. */
 :root {
+  color-scheme: light;
   --color-ink-50: #F4F6FA;
   --color-ink-100: #E5E8EE;
   --color-ink-200: #C9D0DA;
@@ -8,11 +9,13 @@
   --color-ink-500: #5B6675;
   --color-ink-600: #3C4757;
   --color-ink-700: #2A3340;
+  --color-ink-800: #1A2332;
   --color-ink-900: #0E141B;
   --color-ink-900-rgb: 14, 20, 27;
   --color-white: #FFFFFF;
   --color-canvas: #F6F7FB;
   --color-surface-1: #FFFFFF;
+  --color-surface-1-rgb: 255, 255, 255;
   --color-surface-2: #F1F4F9;
   --color-surface-3: #E8EDF5;
   --color-surface-hover: rgba(31, 143, 138, 0.04);
@@ -30,6 +33,8 @@
   --color-brand-400-rgb: 56, 166, 161;
   --color-brand-300-rgb: 107, 192, 187;
   --color-semantic-success-100: #E3F6EB;
+  --color-semantic-success-500: #2E9E5B;
+  --color-semantic-success-500-rgb: 46, 158, 91;
   --color-semantic-success-600: #2E9E5B;
   --color-semantic-success-700: #237A46;
   --color-semantic-success-600-rgb: 46, 158, 91;
@@ -38,6 +43,8 @@
   --color-semantic-warning-700: #B07222;
   --color-semantic-warning-600-rgb: 217, 138, 43;
   --color-semantic-danger-100: #FDE6E4;
+  --color-semantic-danger-500: #D9544D;
+  --color-semantic-danger-500-rgb: 217, 84, 77;
   --color-semantic-danger-600: #D9544D;
   --color-semantic-danger-700: #B5403A;
   --color-semantic-danger-600-rgb: 217, 84, 77;
@@ -91,10 +98,12 @@
   --spacing-48: 48px;
   --spacing-64: 64px;
   --spacing-80: 80px;
+  --radius-2: 2px;
   --radius-4: 4px;
   --radius-6: 6px;
   --radius-8: 8px;
   --radius-10: 10px;
+  --radius-12: 12px;
   --radius-14: 14px;
   --radius-20: 20px;
   --radius-full: 999px;
@@ -115,9 +124,13 @@
   --motion-easing-standard: cubic-bezier(0.2, 0.0, 0.2, 1.0);
   --motion-easing-emphasized: cubic-bezier(0.2, 0.0, 0.0, 1.0);
   --motion-easing-decel: cubic-bezier(0.0, 0.0, 0.2, 1.0);
+  --topbar-height: 64px;
   --layout-gridColumns: 12;
   --layout-gridGutter: 32px;
   --layout-contentMax: 1440px;
+  /* Breakpoints — used in @media queries (CSS vars can't be used directly in @media) */
+  --breakpoint-xs: 480px;
+  --breakpoint-between: 768px;
   --layout-breakpoints-sm: 640px;
   --layout-breakpoints-md: 1024px;
   --layout-breakpoints-lg: 1280px;
@@ -135,4 +148,72 @@
   --table-rowHeightSpacious: 48px;
   --table-rowHover: rgba(31, 143, 138, 0.06);
   --table-rowSelected: rgba(31, 143, 138, 0.12);
+}
+
+/* ── Dark mode overrides ── */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --color-ink-50: #1A1E2A;
+  --color-ink-100: #242838;
+  --color-ink-200: #2E3348;
+  --color-ink-300: #3D4460;
+  --color-ink-400: #6B748A;
+  --color-ink-500: #8E96AA;
+  --color-ink-600: #B0B7C8;
+  --color-ink-700: #CDD3DF;
+  --color-ink-800: #E0E5EE;
+  --color-ink-900: #F0F2F6;
+  --color-ink-900-rgb: 240, 242, 246;
+  --color-white: #FFFFFF;
+  --color-canvas: #0F1118;
+  --color-surface-1: #181B25;
+  --color-surface-1-rgb: 24, 27, 37;
+  --color-surface-2: #1E2230;
+  --color-surface-3: #262A38;
+  --color-surface-hover: rgba(56, 166, 161, 0.06);
+  --color-border-subtle: #2A2F3E;
+  --color-border-subtle-rgb: 42, 47, 62;
+  --color-border-strong: #3D4460;
+  --color-brand-100: #162E2C;
+  --color-brand-200: #1C3D3A;
+  --color-brand-300: #2B6360;
+  --color-brand-400: #3AADA7;
+  --color-brand-500: #3AADA7;
+  --color-brand-600: #5DC4BF;
+  --color-brand-700: #8DD8D4;
+  --color-brand-500-rgb: 58, 173, 167;
+  --color-brand-400-rgb: 58, 173, 167;
+  --color-brand-300-rgb: 43, 99, 96;
+  --color-semantic-success-100: #132B1E;
+  --color-semantic-success-500: #3BB76B;
+  --color-semantic-success-500-rgb: 59, 183, 107;
+  --color-semantic-success-600: #3BB76B;
+  --color-semantic-success-700: #2E9E5B;
+  --color-semantic-success-600-rgb: 59, 183, 107;
+  --color-semantic-warning-100: #2D2415;
+  --color-semantic-warning-600: #E9A444;
+  --color-semantic-warning-700: #D98A2B;
+  --color-semantic-warning-600-rgb: 233, 164, 68;
+  --color-semantic-danger-100: #2D1614;
+  --color-semantic-danger-500: #E76B63;
+  --color-semantic-danger-500-rgb: 231, 107, 99;
+  --color-semantic-danger-600: #E76B63;
+  --color-semantic-danger-700: #D9544D;
+  --color-semantic-danger-600-rgb: 231, 107, 99;
+  --color-semantic-info-100: #151F2D;
+  --color-semantic-info-600: #4A92E8;
+  --color-semantic-info-700: #2F7AD7;
+  --color-semantic-info-600-rgb: 74, 146, 232;
+  --color-chart-grid: #262A38;
+  --color-chart-axis: #6B748A;
+  --color-chart-line: #3AADA7;
+  --color-chart-fill: rgba(58, 173, 167, 0.12);
+  --elevation-xs: 0 1px 2px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(0, 0, 0, 0.1);
+  --elevation-sm: 0 2px 6px rgba(0, 0, 0, 0.3);
+  --elevation-md: 0 6px 16px rgba(0, 0, 0, 0.35);
+  --elevation-lg: 0 16px 32px rgba(0, 0, 0, 0.4);
+  --border-1: 1px solid #2A2F3E;
+  --border-2: 2px solid #3D4460;
+  --table-rowHover: rgba(58, 173, 167, 0.08);
+  --table-rowSelected: rgba(58, 173, 167, 0.15);
 }

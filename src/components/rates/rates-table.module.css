@@ -3,25 +3,26 @@
   -webkit-overflow-scrolling: touch;
 }
 
-/* ── Column template (10 columns) ── */
-/* Pair | Bid | Ask | Spread | Chg% | Open | High | Low | Close | Updated */
+/* ── Column template (11 columns) ── */
+/* Pair | Bid | Ask | Spread | Chg% | Open | High | Low | Close | Range | Updated */
 
 /* ── Header ── */
 .header {
   display: grid;
   grid-template-columns:
-    minmax(170px, 1.3fr)
-    minmax(88px, 1fr)
-    minmax(88px, 1fr)
-    minmax(72px, 0.7fr)
-    minmax(140px, 1.3fr)
-    minmax(84px, 0.9fr)
-    minmax(84px, 0.9fr)
-    minmax(84px, 0.9fr)
-    minmax(84px, 0.9fr)
-    minmax(76px, 0.7fr);
-  gap: var(--spacing-4);
-  padding: var(--spacing-12) var(--spacing-24);
+    minmax(160px, 1.3fr)
+    minmax(80px, 0.9fr)
+    minmax(80px, 0.9fr)
+    minmax(62px, 0.55fr)
+    minmax(124px, 1.1fr)
+    minmax(76px, 0.75fr)
+    minmax(76px, 0.75fr)
+    minmax(76px, 0.75fr)
+    minmax(76px, 0.75fr)
+    minmax(100px, 1fr)
+    minmax(100px, 0.8fr);
+  gap: 2px;
+  padding: var(--spacing-12) var(--spacing-16);
   border-bottom: 1px solid var(--color-border-subtle);
   font-size: var(--typography-size-2xs);
   font-weight: var(--typography-weight-semibold);
@@ -43,9 +44,6 @@
   padding-left: var(--spacing-8);
 }
 
-.headerOhlc {
-  background: rgba(var(--color-ink-900-rgb), 0.02);
-}
 
 .cellSep {
   border-left: 1px solid rgba(var(--color-border-subtle-rgb), 0.4);
@@ -58,22 +56,34 @@
   flex-direction: column;
 }
 
+/* ── Row entrance ── */
+@keyframes rowEnter {
+  from { opacity: 0; transform: translateX(-8px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+.rowEnter {
+  animation: rowEnter var(--motion-duration-240) var(--motion-easing-emphasized) both;
+  animation-delay: var(--row-enter-delay, 0ms);
+}
+
 /* ── Row ── */
 .row {
   display: grid;
   grid-template-columns:
-    minmax(170px, 1.3fr)
-    minmax(88px, 1fr)
-    minmax(88px, 1fr)
-    minmax(72px, 0.7fr)
-    minmax(140px, 1.3fr)
-    minmax(84px, 0.9fr)
-    minmax(84px, 0.9fr)
-    minmax(84px, 0.9fr)
-    minmax(84px, 0.9fr)
-    minmax(76px, 0.7fr);
-  gap: var(--spacing-4);
-  padding: var(--spacing-12) var(--spacing-24);
+    minmax(160px, 1.3fr)
+    minmax(80px, 0.9fr)
+    minmax(80px, 0.9fr)
+    minmax(62px, 0.55fr)
+    minmax(124px, 1.1fr)
+    minmax(76px, 0.75fr)
+    minmax(76px, 0.75fr)
+    minmax(76px, 0.75fr)
+    minmax(76px, 0.75fr)
+    minmax(100px, 1fr)
+    minmax(100px, 0.8fr);
+  gap: 2px;
+  padding: var(--spacing-12) var(--spacing-16);
   border-bottom: 1px solid rgba(var(--color-border-subtle-rgb), 0.6);
   align-items: center;
   transition: background var(--motion-duration-100) var(--motion-easing-standard);
@@ -245,6 +255,44 @@
   letter-spacing: -0.02em;
 }
 
+/* ── Day Range (inline track) ── */
+.rangeCol {
+  display: flex;
+  align-items: center;
+  padding: 0 var(--spacing-4);
+}
+
+.rangeTrack {
+  position: relative;
+  width: 100%;
+  height: 3px;
+  background: var(--color-ink-100);
+  border-radius: 2px;
+  overflow: visible;
+}
+
+.rangeFill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: var(--color-brand-300);
+  border-radius: 2px;
+  transition: width var(--motion-duration-400) var(--motion-easing-standard);
+}
+
+.rangeDot {
+  position: absolute;
+  top: 50%;
+  width: 7px;
+  height: 7px;
+  background: var(--color-brand-500);
+  border-radius: var(--radius-full);
+  transform: translate(-50%, -50%);
+  transition: left var(--motion-duration-400) var(--motion-easing-standard);
+  box-shadow: 0 0 0 2px var(--color-surface-1);
+}
+
 /* ── Timestamp ── */
 .timeCol {
   display: flex;
@@ -348,9 +396,13 @@
   .empty {
     animation: none;
   }
+
+  .rowEnter {
+    animation: none;
+  }
 }
 
-/* ── Responsive: tablet — hide OHLC, keep core columns ── */
+/* ── Responsive: tablet — hide OHLC + Range, keep core columns ── */
 @media (max-width: 1100px) {
   .header,
   .row {
@@ -363,7 +415,8 @@
       minmax(72px, 0.7fr);
   }
 
-  .ohlcCol {
+  .ohlcCol,
+  .rangeCol {
     display: none;
   }
 }
@@ -381,6 +434,7 @@
   }
 
   .ohlcCol,
+  .rangeCol,
   .timeCol,
   .dragHandle,
   .spreadCol {

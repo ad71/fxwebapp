@@ -95,10 +95,11 @@ export function CurrencyConverter({ pair, spotRate }: CurrencyConverterProps) {
         </div>
 
         <span className={styles.spotLabel}>
-          At spot rate:{" "}
+          1 {pair.base} ={" "}
           <span className={styles.spotValue}>
             {spotRate >= 100 ? spotRate.toFixed(4) : spotRate >= 1 ? spotRate.toFixed(4) : spotRate.toFixed(5)}
-          </span>
+          </span>{" "}
+          {pair.quote}
         </span>
       </div>
     </div>

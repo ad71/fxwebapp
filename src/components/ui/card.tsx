@@ -8,9 +8,13 @@ import * as React from "react";
 import styles from "./card.module.css";
 import { cn } from "./cn";
 
-export const Card = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLDivElement>>(
-  ({ className, ...props }, ref) => (
-    <div ref={ref} className={cn(styles.card, className)} {...props} />
+interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+  interactive?: boolean;
+}
+
+export const Card = React.forwardRef<HTMLDivElement, CardProps>(
+  ({ className, interactive, ...props }, ref) => (
+    <div ref={ref} className={cn(styles.card, interactive && styles.cardInteractive, className)} {...props} />
   )
 );
 Card.displayName = "Card";

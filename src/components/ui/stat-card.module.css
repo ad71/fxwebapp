@@ -6,6 +6,13 @@
   background: var(--color-surface-1);
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-8);
+  transition: background var(--motion-duration-150) var(--motion-easing-standard),
+    border-color var(--motion-duration-150) var(--motion-easing-standard);
+}
+
+.card:hover {
+  background: var(--color-surface-hover);
+  border-color: var(--color-border-strong);
 }
 
 .label {

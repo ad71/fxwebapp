@@ -48,6 +48,11 @@
   border-color: var(--color-ink-400);
 }
 
+.navBtn:focus-visible {
+  outline: 2px solid var(--color-brand-300);
+  outline-offset: 2px;
+}
+
 .navBtn:disabled {
   opacity: 0.35;
   cursor: default;
@@ -169,13 +174,42 @@
   color: var(--color-ink-400);
 }
 
+/* ── Heatmap levels (premium intensity) ── */
+.heatLow     { background: var(--color-brand-100); }
+.heatMedium  { background: var(--color-brand-200); }
+.heatHigh    { background: var(--color-brand-300); }
+.heatVeryHigh { background: var(--color-brand-400); }
+
 /* Holiday cells */
 .cellHoliday {
   opacity: 1;
+  background: var(--color-semantic-danger-100);
 }
 
 .cellHoliday .cellDay {
   color: var(--color-semantic-danger-600);
+}
+
+/* ── Heatmap legend ── */
+.legend {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  padding-top: var(--spacing-8);
+  font-size: var(--typography-size-2xs);
+  color: var(--color-ink-500);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+
+.legendSwatch {
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-2);
 }
 
 .holidayDot {
@@ -257,11 +291,11 @@
 }
 
 .detailMonthEnd {
-  background: rgba(var(--color-brand-rgb, 31, 143, 138), 0.06);
+  background: rgba(var(--color-brand-500-rgb), 0.06);
 }
 
 .detailMonthEnd:hover {
-  background: rgba(var(--color-brand-rgb, 31, 143, 138), 0.1);
+  background: rgba(var(--color-brand-500-rgb), 0.1);
 }
 
 .detailHoliday {
@@ -320,5 +354,23 @@
 
   .container {
     padding: var(--spacing-12);
+  }
+}
+
+/* ── Touch device: larger calendar cells ── */
+@media (hover: none) {
+  .cell {
+    min-height: 44px;
+  }
+
+  .navBtn {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .monthHeader {
+    min-height: 44px;
+    display: flex;
+    align-items: center;
   }
 }

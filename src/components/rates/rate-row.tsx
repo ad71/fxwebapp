@@ -1,16 +1,17 @@
 "use client";
 
 import { memo, useRef, useState, useEffect } from "react";
-import Link from "next/link";
 import { ChevronRight } from "lucide-react";
 import type { CurrencyPairMeta, RateTick } from "../../lib/rates/types";
 import { CurrencyPairCell } from "./currency-pair-cell";
 import { Tooltip } from "../ui/tooltip";
+import { useViewTransition } from "../../hooks/use-view-transition";
 import styles from "./rates-table.module.css";
 
 interface RateRowProps {
   pair: CurrencyPairMeta;
   tick: RateTick;
+  index?: number;
   onDragStart: (e: React.DragEvent, pairId: string) => void;
   onDragOver: (e: React.DragEvent, pairId: string) => void;
   onDragEnd: () => void;
@@ -45,10 +46,11 @@ function formatChangePct(value: number): string {
 }
 
 function formatTimestamp(date: Date): string {
+  const d = date.getDate().toString().padStart(2, "0");
   const h = date.getHours().toString().padStart(2, "0");
   const m = date.getMinutes().toString().padStart(2, "0");
   const s = date.getSeconds().toString().padStart(2, "0");
-  return `${h}:${m}:${s}`;
+  return `${d} ${h}:${m}:${s}`;
 }
 
 function formatFullTimestamp(date: Date): string {
@@ -66,6 +68,7 @@ function formatFullTimestamp(date: Date): string {
 function RateRowInner({
   pair,
   tick,
+  index = 0,
   onDragStart,
   onDragOver,
   onDragEnd,
@@ -73,12 +76,15 @@ function RateRowInner({
   isDragging,
   isDragOver,
 }: RateRowProps) {
+  const { navigate } = useViewTransition();
+  const gripActivatedRef = useRef(false);
   const prevBidRef = useRef(tick.bid);
   const prevAskRef = useRef(tick.ask);
   const [bidAnim, setBidAnim] = useState(0);
   const [askAnim, setAskAnim] = useState(0);
   const [bidDir, setBidDir] = useState<"up" | "down" | "flat">("flat");
   const [askDir, setAskDir] = useState<"up" | "down" | "flat">("flat");
+  const hasEnteredRef = useRef(false);
 
   useEffect(() => {
     if (tick.bid !== prevBidRef.current) {
@@ -95,29 +101,54 @@ function RateRowInner({
 
   const isPositive = tick.change >= 0;
 
+  // Apply entrance animation only on first render
+  const showEntrance = !hasEnteredRef.current;
+  useEffect(() => {
+    hasEnteredRef.current = true;
+  }, []);
+
   const rowClass = [
     styles.row,
+    showEntrance ? styles.rowEnter : "",
     isDragging ? styles.rowDragging : "",
     isDragOver ? styles.rowDragOver : "",
   ]
     .filter(Boolean)
     .join(" ");
 
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    navigate(`/security/${pair.id}`);
+  };
+
+  const handleDragStart = (e: React.DragEvent) => {
+    if (!gripActivatedRef.current) {
+      e.preventDefault();
+      return;
+    }
+    onDragStart(e as any, pair.id);
+  };
+
   return (
-    <Link
+    <a
       href={`/security/${pair.id}`}
       className={rowClass}
+      style={{
+        ...(showEntrance ? { "--row-enter-delay": `${index * 40}ms` } as React.CSSProperties : {}),
+        viewTransitionName: `rate-row-${pair.id}`,
+      } as React.CSSProperties}
       draggable
-      onDragStart={(e) => onDragStart(e, pair.id)}
-      onDragOver={(e) => onDragOver(e, pair.id)}
-      onDragEnd={onDragEnd}
-      onDrop={(e) => onDrop(e, pair.id)}
+      onClick={handleClick}
+      onDragStart={handleDragStart}
+      onDragOver={(e) => onDragOver(e as any, pair.id)}
+      onDragEnd={() => { gripActivatedRef.current = false; onDragEnd(); }}
+      onDrop={(e) => onDrop(e as any, pair.id)}
     >
       <div className={styles.pairCell}>
         <div
           className={styles.dragHandle}
-          onClick={(e) => e.preventDefault()}
-          onMouseDown={(e) => e.stopPropagation()}
+          onMouseDown={() => { gripActivatedRef.current = true; }}
+          onMouseUp={() => { gripActivatedRef.current = false; }}
         >
           <div className={styles.gripDots}>
             {Array.from({ length: 6 }).map((_, i) => (
@@ -173,13 +204,27 @@ function RateRowInner({
       <div className={styles.ohlcCol}>{formatRate(tick.low, pair)}</div>
       <div className={styles.ohlcCol}>{formatRate(tick.close, pair)}</div>
 
+      {/* Day Range: inline track showing close position within [low, high] */}
+      {(() => {
+        const range = tick.high - tick.low;
+        const pos = range > 0 ? Math.max(0, Math.min(100, ((tick.close - tick.low) / range) * 100)) : 50;
+        return (
+          <div className={styles.rangeCol}>
+            <div className={styles.rangeTrack}>
+              <div className={styles.rangeFill} style={{ width: `${pos}%` }} />
+              <div className={styles.rangeDot} style={{ left: `${pos}%` }} />
+            </div>
+          </div>
+        );
+      })()}
+
       <Tooltip content={formatFullTimestamp(tick.lastUpdated)}>
         <div className={`${styles.timeCol} ${styles.cellSep}`}>
           {formatTimestamp(tick.lastUpdated)}
           <ChevronRight size={14} className={styles.rowChevron} />
         </div>
       </Tooltip>
-    </Link>
+    </a>
   );
 }
 
@@ -192,6 +237,7 @@ export const RateRow = memo(RateRowInner, (prev, next) => {
     prev.tick.low === next.tick.low &&
     prev.tick.lastUpdated === next.tick.lastUpdated &&
     prev.isDragging === next.isDragging &&
-    prev.isDragOver === next.isDragOver
+    prev.isDragOver === next.isDragOver &&
+    prev.index === next.index
   );
 });

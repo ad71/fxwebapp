@@ -113,14 +113,15 @@ export function RatesTable({ pairs, rates }: RatesTableProps) {
         <span>Ask</span>
         <span>Spread</span>
         <span className={styles.headerSep}>Day Change</span>
-        <span className={`${styles.headerSep} ${styles.headerOhlc}`}>Open</span>
-        <span className={styles.headerOhlc}>High</span>
-        <span className={styles.headerOhlc}>Low</span>
-        <span className={styles.headerOhlc}>Close</span>
+        <span className={styles.headerSep}>Open</span>
+        <span>High</span>
+        <span>Low</span>
+        <span>Close</span>
+        <span>Day Range</span>
         <span className={styles.headerSep}>Updated</span>
       </div>
       <div className={styles.body}>
-        {orderedPairs.map((pair) => {
+        {orderedPairs.map((pair, i) => {
           const tick = rates[pair.id];
           if (!tick) return null;
           return (
@@ -128,6 +129,7 @@ export function RatesTable({ pairs, rates }: RatesTableProps) {
               key={pair.id}
               pair={pair}
               tick={tick}
+              index={i}
               onDragStart={handleDragStart}
               onDragOver={handleDragOver}
               onDragEnd={handleDragEnd}

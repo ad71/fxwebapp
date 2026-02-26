@@ -1,6 +1,8 @@
 import "./globals.css";
 import "../styles/tokens.css";
 import { AppShell } from "../components/layout/app-shell";
+import { NProgress } from "../components/ui/nprogress";
+import { ThemeProvider } from "../components/theme/theme-provider";
 import { Sora, Space_Grotesk } from "next/font/google";
 
 const sora = Sora({
@@ -15,9 +17,14 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
-export const metadata = {
-  title: "FX Web App",
-  description: "FX platform UI scaffold",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    default: "Balli FX",
+    template: "%s — Balli FX",
+  },
+  description: "Real-time FX rates, analytics, and treasury tools for currency professionals.",
 };
 
 export default function RootLayout({
@@ -26,9 +33,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${sora.variable} ${spaceGrotesk.variable}`}>
+    <html lang="en" className={`${sora.variable} ${spaceGrotesk.variable}`} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('fx-theme');if(t==='dark'||(t!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.setAttribute('data-theme','dark')}}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body>
-        <AppShell>{children}</AppShell>
+        <ThemeProvider>
+          <NProgress />
+          <AppShell>{children}</AppShell>
+        </ThemeProvider>
       </body>
     </html>
   );

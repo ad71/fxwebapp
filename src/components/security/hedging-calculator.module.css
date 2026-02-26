@@ -56,11 +56,23 @@
   padding: var(--spacing-12) 0;
 }
 
+@keyframes resultReveal {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .resultGrid {
   margin: 0;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-8);
+  animation: resultReveal var(--motion-duration-240) var(--motion-easing-emphasized) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resultGrid {
+    animation: none;
+  }
 }
 
 .resultRow {

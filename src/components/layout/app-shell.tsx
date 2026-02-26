@@ -20,8 +20,12 @@ import {
   Search,
   Bell,
   ChevronDown,
+  Sun,
+  Moon,
+  Monitor,
   type LucideIcon,
 } from "lucide-react";
+import { useTheme } from "../theme/theme-provider";
 import styles from "./app-shell.module.css";
 
 const NAV_ITEMS: { label: string; href: string; icon: LucideIcon }[] = [
@@ -33,9 +37,20 @@ const NAV_ITEMS: { label: string; href: string; icon: LucideIcon }[] = [
   { label: "REPORT", href: "/report", icon: BarChart3 },
 ];
 
+const THEME_CYCLE = ["light", "dark", "system"] as const;
+const THEME_ICONS = { light: Sun, dark: Moon, system: Monitor } as const;
+
 export const AppShell: React.FC<React.PropsWithChildren> = ({ children }) => {
   const pathname = usePathname();
   const [mobileNavOpen, setMobileNavOpen] = React.useState(false);
+  const { theme, setTheme } = useTheme();
+
+  const cycleTheme = () => {
+    const idx = THEME_CYCLE.indexOf(theme);
+    setTheme(THEME_CYCLE[(idx + 1) % THEME_CYCLE.length]);
+  };
+
+  const ThemeIcon = THEME_ICONS[theme];
 
   React.useEffect(() => {
     setMobileNavOpen(false);
@@ -61,6 +76,13 @@ export const AppShell: React.FC<React.PropsWithChildren> = ({ children }) => {
             >
               <span className={styles.menuIcon} />
             </button>
+
+            {/* Mobile backdrop */}
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
+            <div
+              className={`${styles.navBackdrop} ${mobileNavOpen ? styles.navBackdropVisible : ""}`}
+              onClick={() => setMobileNavOpen(false)}
+            />
 
             <nav
               className={`${styles.nav} ${mobileNavOpen ? styles.navOpen : ""}`}
@@ -97,6 +119,15 @@ export const AppShell: React.FC<React.PropsWithChildren> = ({ children }) => {
 
             <button className={styles.iconButton} aria-label="Notifications">
               <Bell size={18} strokeWidth={2} />
+            </button>
+
+            <button
+              className={styles.iconButton}
+              aria-label={`Theme: ${theme}`}
+              onClick={cycleTheme}
+              title={`Theme: ${theme}`}
+            >
+              <ThemeIcon size={18} strokeWidth={2} />
             </button>
 
             <div className={styles.userSection}>

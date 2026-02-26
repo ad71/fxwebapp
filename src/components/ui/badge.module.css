@@ -8,6 +8,8 @@
   font-weight: var(--typography-weight-medium);
   border: 1px solid transparent;
   white-space: nowrap;
+  transition: background var(--motion-duration-100) var(--motion-easing-standard),
+    color var(--motion-duration-100) var(--motion-easing-standard);
 }
 
 .neutral {

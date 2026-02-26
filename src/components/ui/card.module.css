@@ -5,6 +5,25 @@
   box-shadow: var(--elevation-xs);
 }
 
+.cardInteractive {
+  transition: box-shadow var(--motion-duration-200) var(--motion-easing-standard),
+    transform var(--motion-duration-200) var(--motion-easing-standard);
+}
+
+.cardInteractive:hover {
+  box-shadow: var(--elevation-sm);
+  transform: translateY(-1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cardInteractive {
+    transition: none;
+  }
+  .cardInteractive:hover {
+    transform: none;
+  }
+}
+
 .header {
   padding: var(--spacing-20) var(--spacing-24) var(--spacing-8);
   display: flex;

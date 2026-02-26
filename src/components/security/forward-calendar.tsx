@@ -258,11 +258,11 @@ function MonthGrid({
 
     const bgStyle: React.CSSProperties =
       d.isHoliday
-        ? { background: `rgba(var(--color-semantic-danger-rgb, 220,53,69), ${0.1 + opacity * 0.15})` }
+        ? { background: `rgba(var(--color-semantic-danger-600-rgb), ${0.1 + opacity * 0.15})` }
         : d.isWeekend
           ? {}
           : d.forwardPremium !== null
-            ? { background: `rgba(var(--color-brand-rgb, 31,143,138), ${0.04 + opacity * 0.2})` }
+            ? { background: `rgba(var(--color-brand-500-rgb), ${0.04 + opacity * 0.2})` }
             : {};
 
     return (

@@ -15,6 +15,7 @@ import { useSecurityData } from "../../../lib/security/use-security-data";
 import { SectionAnchorNav } from "../../../components/ui/section-anchor-nav";
 import type { AnchorSection } from "../../../components/ui/section-anchor-nav";
 import { Skeleton } from "../../../components/ui/skeleton";
+import { SectionHeader } from "../../../components/ui/section-header";
 import {
   SecurityHero,
   KeyStatistics,
@@ -74,6 +75,27 @@ export function SecurityPage({ pairId }: SecurityPageProps) {
     return () => observers.forEach((o) => o.disconnect());
   }, [data]);
 
+  // IntersectionObserver for section entrance animations
+  React.useEffect(() => {
+    const sectionEls = document.querySelectorAll(`.${styles.section}`);
+    const entranceObserver = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add(styles.sectionVisible);
+            entranceObserver.unobserve(entry.target);
+          }
+        }
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -60px 0px" },
+    );
+    sectionEls.forEach((el, i) => {
+      (el as HTMLElement).style.setProperty("--section-delay", `${i * 80}ms`);
+      entranceObserver.observe(el);
+    });
+    return () => entranceObserver.disconnect();
+  }, [data]);
+
   // Condensed hero on scroll
   React.useEffect(() => {
     const handleScroll = () => {
@@ -111,10 +133,23 @@ export function SecurityPage({ pairId }: SecurityPageProps) {
     return (
       <div className={styles.page}>
         <div className={styles.skeleton}>
+          {/* Hero skeleton */}
           <Skeleton style={{ height: 200, borderRadius: 14 }} />
-          <Skeleton style={{ height: 40 }} />
-          <Skeleton style={{ height: 120 }} />
-          <Skeleton style={{ height: 400 }} />
+          {/* Anchor nav skeleton */}
+          <Skeleton style={{ height: 40, borderRadius: 8 }} />
+          {/* Stats grid skeleton */}
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
+            {Array.from({ length: 8 }, (_, i) => (
+              <Skeleton key={i} style={{ height: 72, borderRadius: 8 }} />
+            ))}
+          </div>
+          {/* Chart skeleton */}
+          <Skeleton style={{ height: 400, borderRadius: 14 }} />
+          {/* Table skeleton */}
+          <Skeleton style={{ height: 48, borderRadius: 8, marginTop: 24 }} />
+          {Array.from({ length: 6 }, (_, i) => (
+            <Skeleton key={`r-${i}`} style={{ height: 36, borderRadius: 4 }} />
+          ))}
         </div>
       </div>
     );
@@ -162,7 +197,7 @@ export function SecurityPage({ pairId }: SecurityPageProps) {
 
       {/* === OVERVIEW === */}
       <section id="section-overview" className={styles.section}>
-        <h2 className={styles.sectionTitle}>Overview</h2>
+        <SectionHeader title="Overview" subtitle="Key metrics and performance" />
         <div className={styles.overviewGrid}>
           <div className={styles.overviewMain}>
             <KeyStatistics pair={data.pair} spot={data.spot} />
@@ -175,13 +210,13 @@ export function SecurityPage({ pairId }: SecurityPageProps) {
 
       {/* === CHART === */}
       <section id="section-chart" className={styles.section}>
-        <h2 className={styles.sectionTitle}>Historical Chart</h2>
+        <SectionHeader title="Historical Chart" subtitle="Price action and moving averages" />
         <HistoricalChart candles={data.historical} pairId={pairId} />
       </section>
 
       {/* === FORWARDS === */}
       <section id="section-forwards" className={styles.section}>
-        <h2 className={styles.sectionTitle}>Forward Rates</h2>
+        <SectionHeader title="Forward Rates" subtitle="Tenor curve and settlement calendar" />
         <ForwardRatesTable
           forwardRates={data.forwardRates}
           spotRate={data.spot.bid}
@@ -195,7 +230,7 @@ export function SecurityPage({ pairId }: SecurityPageProps) {
 
       {/* === TECHNICAL === */}
       <section id="section-technical" className={styles.section}>
-        <h2 className={styles.sectionTitle}>Technical Analysis</h2>
+        <SectionHeader title="Technical Analysis" subtitle="Indicators and interest rate differentials" />
         <TechnicalSummary technicals={data.technicals} />
         <div className={styles.sectionGap} />
         <InterestRateCurves
@@ -206,7 +241,7 @@ export function SecurityPage({ pairId }: SecurityPageProps) {
 
       {/* === POSITIONS === */}
       <section id="section-positions" className={styles.section}>
-        <h2 className={styles.sectionTitle}>Positions & Rules</h2>
+        <SectionHeader title="Positions & Rules" subtitle="Active hedges and alert rules" />
         <RelatedPositions positions={data.positions} />
         <div className={styles.sectionGap} />
         <ActiveRules rules={data.rules} pairDisplayName={data.pair.displayName} />
@@ -214,7 +249,7 @@ export function SecurityPage({ pairId }: SecurityPageProps) {
 
       {/* === TOOLS === */}
       <section id="section-tools" className={styles.section}>
-        <h2 className={styles.sectionTitle}>Tools</h2>
+        <SectionHeader title="Tools" subtitle="Forward calculator and currency converter" />
         <div className={styles.toolsGrid}>
           <HedgingCalculator
             spotRate={data.spot.bid}

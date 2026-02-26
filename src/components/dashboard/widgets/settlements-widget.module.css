@@ -20,6 +20,11 @@
   padding: var(--spacing-6) var(--spacing-8);
   background: var(--color-surface-2);
   border-radius: var(--radius-6);
+  transition: background var(--motion-duration-100) var(--motion-easing-standard);
+}
+
+.settlementLabel:hover {
+  background: var(--table-rowHover);
 }
 
 @media (max-width: 640px) {

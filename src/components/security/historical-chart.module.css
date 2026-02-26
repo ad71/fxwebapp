@@ -39,8 +39,13 @@
   border-color: var(--color-ink-400);
 }
 
+.maBtn:focus-visible {
+  outline: 2px solid var(--color-brand-300);
+  outline-offset: 2px;
+}
+
 .maBtnActive {
-  background: rgba(0, 0, 0, 0.02);
+  background: rgba(var(--color-ink-900-rgb), 0.02);
 }
 
 .chartArea {
@@ -61,5 +66,14 @@
 
   .maToggles {
     margin-left: 0;
+  }
+}
+
+/* ── Touch targets ── */
+@media (hover: none) {
+  .maBtn {
+    min-height: 44px;
+    min-width: 44px;
+    padding: var(--spacing-8) var(--spacing-12);
   }
 }

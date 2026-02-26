@@ -23,6 +23,12 @@
     box-shadow var(--motion-duration-150) var(--motion-easing-standard);
 }
 
+.input:hover,
+.textarea:hover,
+.select:hover {
+  border-color: var(--color-border-strong);
+}
+
 .input:focus,
 .textarea:focus,
 .select:focus {

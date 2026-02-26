@@ -1,3 +1,4 @@
+import { CreditCard } from "lucide-react";
 import { Button } from "../../ui/button";
 import shared from "./shared.module.css";
 import styles from "./payments-widget.module.css";
@@ -12,6 +13,7 @@ export default function PaymentsWidget() {
         <Button variant="secondary" size="sm">VIEW ALL</Button>
       </div>
       <div className={styles.paymentsEmpty}>
+        <CreditCard size={36} strokeWidth={1.25} className={styles.emptyIcon} />
         <p className={styles.emptyText}>
           There are no payments scheduled for this week.
         </p>

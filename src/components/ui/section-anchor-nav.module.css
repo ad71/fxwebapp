@@ -1,6 +1,6 @@
 .nav {
   position: sticky;
-  top: var(--topbar-height, 56px);
+  top: var(--topbar-height);
   z-index: 40;
   background: var(--color-surface-1);
   border-bottom: 1px solid var(--color-border-subtle);
@@ -46,6 +46,20 @@
 .pill.active {
   color: var(--color-brand-600);
   background: var(--color-brand-100);
+}
+
+@media (max-width: 768px) {
+  .track {
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding: 0 var(--spacing-4);
+  }
+
+  .pill {
+    scroll-snap-align: start;
+    min-height: 44px;
+    padding: var(--spacing-8) var(--spacing-12);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

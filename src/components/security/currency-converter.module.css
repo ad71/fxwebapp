@@ -72,14 +72,22 @@
   transform: scale(0.95);
 }
 
-/* ── Spot rate label ── */
+/* ── Spot rate pill ── */
 .spotLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-6);
   font-size: var(--typography-size-xs);
-  color: var(--color-ink-400);
+  color: var(--color-ink-500);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-full);
+  padding: var(--spacing-4) var(--spacing-12);
+  align-self: center;
 }
 
 .spotValue {
   font-family: var(--typography-fontFamily-mono);
   font-weight: var(--typography-weight-semibold);
-  color: var(--color-ink-600);
+  color: var(--color-brand-500);
 }
