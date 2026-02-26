@@ -1,16 +1,22 @@
 import type { ForwardRate } from "./types";
 
 const PILLAR_TENORS = [
-  { tenor: "ON", days: 1 },
-  { tenor: "TN", days: 2 },
-  { tenor: "1W", days: 7 },
-  { tenor: "2W", days: 14 },
-  { tenor: "1M", days: 30 },
-  { tenor: "2M", days: 60 },
-  { tenor: "3M", days: 90 },
-  { tenor: "6M", days: 180 },
-  { tenor: "9M", days: 270 },
-  { tenor: "1Y", days: 365 },
+  { tenor: "ON",  days: 1   },
+  { tenor: "TN",  days: 2   },
+  { tenor: "1W",  days: 7   },
+  { tenor: "2W",  days: 14  },
+  { tenor: "1M",  days: 30  },
+  { tenor: "2M",  days: 60  },
+  { tenor: "3M",  days: 90  },
+  { tenor: "4M",  days: 120 },
+  { tenor: "5M",  days: 150 },
+  { tenor: "6M",  days: 180 },
+  { tenor: "7M",  days: 210 },
+  { tenor: "8M",  days: 240 },
+  { tenor: "9M",  days: 270 },
+  { tenor: "10M", days: 300 },
+  { tenor: "11M", days: 330 },
+  { tenor: "1Y",  days: 365 },
 ];
 
 function addBusinessDays(date: Date, days: number): Date {

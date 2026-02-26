@@ -21,8 +21,7 @@ import {
   KeyStatistics,
   PerformanceSummary,
   HistoricalChart,
-  ForwardRatesTable,
-  ForwardCalendar,
+  ForwardWidget,
   TechnicalSummary,
   InterestRateCurves,
   RelatedPositions,
@@ -217,12 +216,8 @@ export function SecurityPage({ pairId }: SecurityPageProps) {
       {/* === FORWARDS === */}
       <section id="section-forwards" className={styles.section}>
         <SectionHeader title="Forward Rates" subtitle="Tenor curve and settlement calendar" />
-        <ForwardRatesTable
+        <ForwardWidget
           forwardRates={data.forwardRates}
-          spotRate={data.spot.bid}
-        />
-        <div className={styles.sectionGap} />
-        <ForwardCalendar
           calendar={data.calendar}
           spotRate={data.spot.bid}
         />

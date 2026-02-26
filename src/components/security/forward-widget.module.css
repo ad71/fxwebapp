@@ -1,0 +1,539 @@
+/* ── Card ── */
+.card {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-14);
+  box-shadow: var(--elevation-xs);
+  overflow: hidden;
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px var(--spacing-20);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--typography-size-base);
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-ink-900);
+}
+
+/* ── Body: calendar left (1fr), rates right (fixed) ── */
+.body {
+  display: grid;
+  grid-template-columns: 1fr 440px;
+  height: 680px;
+  overflow: hidden;
+}
+
+/* ═══════════════════════════════════════════════════════
+   LEFT: Calendar panel
+═══════════════════════════════════════════════════════ */
+.calLeft {
+  border-right: 1px solid var(--color-border-subtle);
+  padding: var(--spacing-16);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  min-width: 0;
+}
+
+/* Navigation */
+.calNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.navBtn {
+  appearance: none;
+  border: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-2);
+  border-radius: var(--radius-6);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;
+  color: var(--color-ink-500);
+  cursor: pointer;
+  transition:
+    background var(--motion-duration-100) var(--motion-easing-standard),
+    color var(--motion-duration-100) var(--motion-easing-standard),
+    border-color var(--motion-duration-100) var(--motion-easing-standard);
+  flex-shrink: 0;
+}
+
+.navBtn:hover:not(:disabled) {
+  background: var(--color-brand-100);
+  border-color: var(--color-brand-300);
+  color: var(--color-brand-600);
+}
+
+.navBtn:focus-visible {
+  outline: 2px solid var(--color-brand-300);
+  outline-offset: 2px;
+}
+
+.navBtn:disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.navTitle {
+  font-size: var(--typography-size-sm);
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-ink-800);
+  letter-spacing: 0.01em;
+}
+
+/* Day-of-week labels */
+.dayLabels {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  flex-shrink: 0;
+}
+
+.dayLabel {
+  text-align: center;
+  font-size: 10px;
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-ink-300);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding-bottom: 4px;
+}
+
+/* Grid area: flex column containing optional band + the grid */
+.calGridArea {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+/* Overflow month band label (shown when prev month overflows into top row) */
+.monthBand {
+  font-size: 10px;
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-ink-300);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 3px 0 3px 2px;
+  border-top: 1px solid var(--color-border-subtle);
+  flex-shrink: 0;
+}
+
+/* The 7-column cell grid — grows to fill remaining height */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 2px;
+  flex: 1;
+  min-height: 0;
+}
+
+/* ── Day cells ── */
+.cell {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-4);
+  padding: 4px 6px;
+  overflow: hidden;
+  cursor: default;
+  transition: background var(--motion-duration-100) var(--motion-easing-standard);
+}
+
+.cell:not(.cellWknd):not(.cellOverflow):hover {
+  background: var(--color-surface-2);
+}
+
+.cellBlank { /* intentionally empty */ }
+
+/*
+ * Side-by-side content wrapper (used when a business day has rate data).
+ * day number | outright
+ *            | premium
+ */
+.cellContent {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 7px;
+}
+
+/* Day number in the side-by-side layout */
+.cellDayNum {
+  font-size: 26px;
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-ink-700);
+  line-height: 1;
+  flex-shrink: 0;
+  /* fixed width keeps rate column aligned across 1- and 2-digit days */
+  width: 34px;
+  text-align: center;
+}
+
+/* Today: filled circle on the day number */
+.todayCircle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-full);
+  background: var(--color-brand-500);
+  color: var(--color-white);
+  font-size: 15px;
+  font-weight: var(--typography-weight-bold);
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+/* Rates column (outright + premium stacked) */
+/* gap = 26 - 11 - 11 = 4px so the stacked pair matches the day number height */
+.cellRatesCol {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+/* Outright rate */
+.cellRate {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 11px;
+  font-weight: var(--typography-weight-medium);
+  color: var(--color-ink-600);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Premium / forward points */
+.cellPct {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 11px;
+  font-weight: var(--typography-weight-medium);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.cellPctPos { color: var(--color-brand-500); }
+.cellPctNeg { color: var(--color-semantic-danger-600); }
+
+/* Overflow days (prev / next month) — dimmed, day number only */
+.cellOverflow {
+  opacity: 0.3;
+}
+
+.cellOverflow .cellDayNum {
+  font-size: 13px;
+  color: var(--color-ink-400);
+}
+
+/* Weekend — dimmed */
+.cellWknd {
+  background: var(--color-surface-2);
+  opacity: 0.4;
+}
+
+.cellWknd .cellDayNum {
+  font-size: 13px;
+  font-weight: var(--typography-weight-regular);
+  color: var(--color-ink-400);
+}
+
+/* Holiday */
+.cellHol {
+  background: var(--color-semantic-danger-100);
+}
+
+.cellHol .cellDayNum {
+  color: var(--color-semantic-danger-600);
+}
+
+/* Month-end ring */
+.cellEOM {
+  box-shadow: inset 0 0 0 1.5px var(--color-brand-500);
+}
+
+/* Today */
+.cellToday {
+  background: rgba(var(--color-brand-500-rgb), 0.05);
+}
+
+/* Holiday marker dot */
+.holidayDot {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 4px;
+  height: 4px;
+  border-radius: var(--radius-full);
+  background: var(--color-semantic-danger-500);
+}
+
+/* Calendar footer */
+.calFooter {
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: var(--spacing-8);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.calSpot {
+  font-size: var(--typography-size-xs);
+  font-family: var(--typography-fontFamily-mono);
+  color: var(--color-ink-500);
+  margin-right: auto;
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4);
+  font-size: var(--typography-size-xs);
+  color: var(--color-ink-400);
+}
+
+.legendEOM {
+  display: inline-block;
+  width: 11px;
+  height: 11px;
+  border-radius: var(--radius-2);
+  box-shadow: inset 0 0 0 1.5px var(--color-brand-500);
+  flex-shrink: 0;
+}
+
+.legendHolDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-semantic-danger-500);
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════
+   RIGHT: Rates panel
+   Uses flex column + CSS grid rows so rows stretch to
+   fill exactly the available height in both views.
+═══════════════════════════════════════════════════════ */
+
+/*
+ * Shared column grid: tenor | settlement | outright | fwd pts | ann%
+ * Applied identically to .ratesHeader and .ratesTr so columns lock.
+ */
+.ratesColGrid {
+  display: grid;
+  grid-template-columns: 76px 112px 82px 82px 1fr;
+}
+
+.ratesRight {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* ── Column header ── */
+.ratesHeader {
+  display: grid;
+  grid-template-columns: 76px 112px 82px 82px 1fr;
+  flex-shrink: 0;
+  background: var(--color-surface-1);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.ratesTh {
+  font-size: 10px;
+  font-weight: var(--typography-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-400);
+  padding: 10px 10px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.ratesThRight {
+  text-align: right;
+}
+
+/* ── Rows body: fills all remaining height ── */
+.ratesBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Each data row: grid for columns + flex:1 to share height equally */
+.ratesTr {
+  display: grid;
+  grid-template-columns: 76px 112px 82px 82px 1fr;
+  flex: 1;
+  align-items: stretch;
+  border-bottom: 1px solid rgba(var(--color-border-subtle-rgb), 0.5);
+  transition:
+    background var(--motion-duration-100) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-100) var(--motion-easing-standard);
+  min-height: 0;
+}
+
+.ratesTr:hover {
+  background: var(--color-surface-2);
+  box-shadow: inset 3px 0 0 var(--color-brand-400);
+}
+
+.ratesTr:last-child {
+  border-bottom: none;
+}
+
+/* Cells */
+.ratesTd {
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.ratesTdRight {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+/* Tenor badge */
+.tenorBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 7px;
+  border-radius: var(--radius-4);
+  font-size: 11px;
+  font-weight: var(--typography-weight-bold);
+  font-family: var(--typography-fontFamily-mono);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  min-width: 38px;
+  flex-shrink: 0;
+}
+
+.tenorBadgeShort {
+  background: var(--color-surface-3);
+  color: var(--color-ink-600);
+}
+
+.tenorBadgeMonthly {
+  background: rgba(var(--color-brand-500-rgb), 0.08);
+  color: var(--color-brand-700);
+}
+
+/* Group divider: fixed height, does not flex-grow */
+.ratesGroupRow {
+  flex: 0 0 auto;
+  background: var(--color-surface-2);
+}
+
+.ratesGroupLabel {
+  padding: 4px 10px;
+  font-size: 10px;
+  font-weight: var(--typography-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--color-ink-300);
+  border-top: 1px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+/* Settlement date */
+.settlementCell {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 11px;
+  color: var(--color-ink-500);
+  white-space: nowrap;
+}
+
+/* Outright rate */
+.outrightCell {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 12px;
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-ink-800);
+}
+
+/* Forward points */
+.ptsPos {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 11px;
+  color: var(--color-brand-500);
+}
+
+.ptsNeg {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 11px;
+  color: var(--color-semantic-danger-600);
+}
+
+/* Annualized % — heat-bar via inline style */
+.annCell {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 11px;
+  color: var(--color-ink-600);
+}
+
+/* Footer */
+.ratesFooter {
+  border-top: 1px solid var(--color-border-subtle);
+  padding: var(--spacing-8) var(--spacing-12);
+  font-size: var(--typography-size-xs);
+  color: var(--color-ink-400);
+  font-family: var(--typography-fontFamily-mono);
+  flex-shrink: 0;
+}
+
+.ratesFooterSpot {
+  color: var(--color-ink-600);
+  font-weight: var(--typography-weight-semibold);
+}
+
+/* ═══════════════════════════════════════════════════════
+   Responsive
+═══════════════════════════════════════════════════════ */
+@media (max-width: 1099px) {
+  .body {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .calLeft {
+    border-right: none;
+    border-bottom: 1px solid var(--color-border-subtle);
+    min-height: 480px;
+  }
+}
+
+@media (max-width: 639px) {
+  .cell {
+    min-height: 44px;
+  }
+
+  .ratesTh,
+  .ratesTd {
+    padding: 8px 8px;
+  }
+}

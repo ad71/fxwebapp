@@ -4,6 +4,7 @@ export { PerformanceSummary } from "./performance-summary";
 export { HistoricalChart } from "./historical-chart";
 export { ForwardRatesTable } from "./forward-rates-table";
 export { ForwardCalendar } from "./forward-calendar";
+export { ForwardWidget } from "./forward-widget";
 export { TechnicalSummary } from "./technical-summary";
 export { InterestRateCurves } from "./interest-rate-curves";
 export { RelatedPositions } from "./related-positions";
