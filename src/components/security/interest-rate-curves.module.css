@@ -1,131 +1,342 @@
-/* ── Layout ── */
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-16);
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--spacing-16);
-}
-
-@media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* ── Panel ── */
-.panel {
+/* ── Card shell ── */
+.card {
   background: var(--color-surface-1);
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-14);
+  box-shadow: var(--elevation-xs);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 14px var(--spacing-20) 12px;
+  border-bottom: 1px solid var(--color-border-subtle);
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--typography-size-base);
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-ink-900);
+  letter-spacing: -0.01em;
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badge {
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--typography-fontFamily-mono);
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: var(--radius-4);
+}
+
+.badge[data-which="domestic"] {
+  background: rgba(var(--color-brand-500-rgb), 0.1);
+  color: var(--color-brand-600);
+}
+
+.badge[data-which="foreign"] {
+  background: rgba(var(--color-semantic-info-600-rgb), 0.1);
+  color: var(--color-semantic-info-600);
+}
+
+.metaVs  { font-size: var(--typography-size-xs);  color: var(--color-ink-300); }
+.metaSrc { font-size: var(--typography-size-2xs); color: var(--color-ink-300); letter-spacing: 0.02em; }
+
+.headerRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legendLine {
+  display: inline-block;
+  width: 16px;
+  height: 2px;
+  border-radius: 1px;
+}
+
+.legendCcy {
+  font-size: var(--typography-size-2xs);
+  font-weight: 600;
+  font-family: var(--typography-fontFamily-mono);
+  color: var(--color-ink-500);
+  margin-right: 4px;
+}
+
+.freshness {
+  font-size: var(--typography-size-2xs);
+  color: var(--color-ink-300);
+}
+
+/* ── Body: square chart left, data table right ── */
+.body {
+  display: flex;
+  border-bottom: 1px solid var(--color-border-subtle);
+  overflow: hidden;
+}
+
+/* ── Chart pane — square, 56% of card width ── */
+.chartPane {
+  flex: 0 0 clamp(260px, 56%, 540px);
+  border-right: 1px solid var(--color-border-subtle);
+  background: var(--color-surface-1);
+}
+
+.chartSvg {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  cursor: crosshair;
+}
+
+/* ── Table pane — fills remaining width, flex column so ratesBody can grow ── */
+.tablePane {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
 
-.panelHeader {
-  padding: var(--spacing-16) var(--spacing-20);
+/* ── Column headers — matches forward-widget .ratesHeader exactly ── */
+.ratesHeader {
+  display: grid;
+  grid-template-columns: 64px 1fr 1fr 1fr;
+  flex-shrink: 0;
+  background: var(--color-surface-1);
   border-bottom: 1px solid var(--color-border-subtle);
 }
 
-.panelTitle {
-  margin: 0;
-  font-size: var(--typography-size-base);
+.ratesTh {
+  font-size: 10px;
   font-weight: var(--typography-weight-semibold);
-  color: var(--color-ink-900);
-}
-
-.panelSubtitle {
-  margin: var(--spacing-4) 0 0;
-  font-size: var(--typography-size-xs);
-  color: var(--color-ink-400);
-}
-
-/* ── Table ── */
-.tableWrap {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  flex: 1;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: var(--typography-size-sm);
-}
-
-.table thead {
-  background: var(--color-surface-2);
-}
-
-.table th {
-  padding: var(--spacing-8) var(--spacing-16);
-  text-align: left;
-  font-weight: var(--typography-weight-semibold);
-  font-size: var(--typography-size-xs);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: var(--color-ink-500);
+  letter-spacing: 0.06em;
+  color: var(--color-ink-400);
+  padding: 10px 10px;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
-.table td {
-  padding: var(--spacing-8) var(--spacing-16);
-  text-align: left;
-  border-bottom: 1px solid rgba(var(--color-border-subtle-rgb), 0.6);
+.ratesThRight {
+  justify-content: flex-end;
 }
 
-.table tbody tr:last-child td {
+/* ── Rows body: fills all remaining height, rows share it equally ── */
+.ratesBody {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-subtle) transparent;
+}
+
+/* Each row: grid + flex-grow so rows divide available height equally */
+.ratesTr {
+  display: grid;
+  grid-template-columns: 64px 1fr 1fr 1fr;
+  flex: 1;
+  align-items: stretch;
+  border-bottom: 1px solid rgba(var(--color-border-subtle-rgb), 0.5);
+  transition:
+    background var(--motion-duration-100) var(--motion-easing-standard),
+    box-shadow var(--motion-duration-100) var(--motion-easing-standard);
+  min-height: 0;
+}
+
+.ratesTr:last-child {
   border-bottom: none;
 }
 
-.table tbody tr {
-  transition: background var(--motion-duration-100) var(--motion-easing-standard);
-}
-
-.table tbody tr:hover {
+.ratesTr:hover,
+.ratesTrActive {
   background: var(--color-surface-2);
+  box-shadow: inset 3px 0 0 var(--color-brand-400);
 }
 
-.rateCol {
-  text-align: right;
-  font-family: var(--typography-fontFamily-mono);
-}
-
-.tenorCol {
-  font-weight: var(--typography-weight-semibold);
-  white-space: nowrap;
-}
-
-/* ── Differential row ── */
-.differential {
-  background: var(--color-surface-1);
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-14);
-  padding: var(--spacing-12) var(--spacing-20);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--spacing-8);
-  font-size: var(--typography-size-sm);
-  color: var(--color-ink-700);
-}
-
-.diffLabel {
-  font-weight: var(--typography-weight-semibold);
+/* Active: also emphasise the rate values */
+.ratesTrActive .valueCell {
   color: var(--color-ink-900);
 }
 
-.diffValue {
-  font-family: var(--typography-fontFamily-mono);
-  font-weight: var(--typography-weight-bold);
-  color: var(--color-brand-500);
+/* ── Cells ── */
+.ratesTd {
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
 }
 
-.diffTenor {
-  color: var(--color-ink-400);
+.ratesTdRight {
+  justify-content: flex-end;
+}
+
+/* ── Tenor badge — mirrors forward-widget .tenorBadge ── */
+.tenorBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 6px;
+  border-radius: var(--radius-4);
+  font-size: 10px;
+  font-weight: var(--typography-weight-bold);
+  font-family: var(--typography-fontFamily-mono);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  min-width: 36px;
+  flex-shrink: 0;
+}
+
+/* Background + color are set via inline tenorBadgeStyle() — a smooth
+   color-mix() gradient from surface-3/ink-600 (ON) to brand-tinted/brand-700 (10Y). */
+
+/* ── Rate value cells ── */
+.valueCell {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 12px;
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-ink-800);
+}
+
+/* ── Spread cell (colored) ── */
+.spreadPos {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 12px;
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-semantic-success-600);
+}
+
+.spreadNeg {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 12px;
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-semantic-danger-600);
+}
+
+/* ── Colored dot next to currency header labels ── */
+.thDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ── Carry insight footer ── */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px var(--spacing-20);
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.footerCarry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: var(--typography-size-xs);
+}
+
+.footerTag {
+  font-size: var(--typography-size-2xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-ink-400);
+  background: var(--color-surface-2);
+  padding: 2px 6px;
+  border-radius: var(--radius-4);
+}
+
+.footerSpread {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: var(--typography-size-sm);
+  font-weight: 700;
+}
+
+.footerSpread[data-pos="true"]  { color: var(--color-semantic-success-600); }
+.footerSpread[data-pos="false"] { color: var(--color-semantic-danger-600); }
+
+.footerSep { color: var(--color-ink-300); }
+
+.footerDir { font-size: var(--typography-size-xs); color: var(--color-ink-500); }
+.footerDir strong { color: var(--color-ink-800); font-weight: 600; }
+
+.footerShapes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--typography-size-xs);
+  color: var(--color-ink-400);
+}
+
+.footerShapes strong { color: var(--color-ink-700); font-weight: 600; }
+.shapeSep { color: var(--color-ink-200); }
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .body {
+    flex-direction: column;
+  }
+
+  .chartPane {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .chartSvg {
+    aspect-ratio: unset;
+    height: 280px;
+  }
+
+  .tablePane {
+    max-height: 360px;
+  }
+}
+
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ratesTr { transition: none; }
 }

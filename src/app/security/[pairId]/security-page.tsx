@@ -3,7 +3,6 @@
 import * as React from "react";
 import Link from "next/link";
 import {
-  LayoutDashboard,
   TrendingUp,
   Calendar,
   Activity,
@@ -17,9 +16,7 @@ import type { AnchorSection } from "../../../components/ui/section-anchor-nav";
 import { Skeleton } from "../../../components/ui/skeleton";
 import { SectionHeader } from "../../../components/ui/section-header";
 import {
-  SecurityHero,
-  KeyStatistics,
-  PerformanceSummary,
+  SecurityOverviewCard,
   HistoricalChart,
   ForwardWidget,
   TechnicalSummary,
@@ -32,7 +29,6 @@ import {
 import styles from "./security-page.module.css";
 
 const SECTIONS: AnchorSection[] = [
-  { id: "overview", label: "Overview", icon: LayoutDashboard },
   { id: "chart", label: "Chart", icon: TrendingUp },
   { id: "forwards", label: "Forwards", icon: Calendar },
   { id: "technical", label: "Technical", icon: Activity },
@@ -46,8 +42,7 @@ interface SecurityPageProps {
 
 export function SecurityPage({ pairId }: SecurityPageProps) {
   const data = useSecurityData(pairId);
-  const [activeSection, setActiveSection] = React.useState("overview");
-  const [heroCondensed, setHeroCondensed] = React.useState(false);
+  const [activeSection, setActiveSection] = React.useState("chart");
 
   // IntersectionObserver for active section tracking
   React.useEffect(() => {
@@ -94,15 +89,6 @@ export function SecurityPage({ pairId }: SecurityPageProps) {
     });
     return () => entranceObserver.disconnect();
   }, [data]);
-
-  // Condensed hero on scroll
-  React.useEffect(() => {
-    const handleScroll = () => {
-      setHeroCondensed(window.scrollY > 280);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Keyboard shortcuts
   React.useEffect(() => {
@@ -168,23 +154,12 @@ export function SecurityPage({ pairId }: SecurityPageProps) {
         </span>
       </nav>
 
-      {/* Condensed hero (sticky) */}
-      {heroCondensed && (
-        <div className={styles.stickyHero}>
-          <SecurityHero
-            pair={data.pair}
-            spot={data.spot}
-            forwardRates={data.forwardRates}
-            condensed
-          />
-        </div>
-      )}
-
-      {/* Full hero */}
-      <SecurityHero
+      {/* Overview card */}
+      <SecurityOverviewCard
         pair={data.pair}
         spot={data.spot}
         forwardRates={data.forwardRates}
+        performance={data.performance}
       />
 
       {/* Anchor nav */}
@@ -193,19 +168,6 @@ export function SecurityPage({ pairId }: SecurityPageProps) {
         activeId={activeSection}
         className={styles.anchorNav}
       />
-
-      {/* === OVERVIEW === */}
-      <section id="section-overview" className={styles.section}>
-        <SectionHeader title="Overview" subtitle="Key metrics and performance" />
-        <div className={styles.overviewGrid}>
-          <div className={styles.overviewMain}>
-            <KeyStatistics pair={data.pair} spot={data.spot} />
-          </div>
-          <div className={styles.overviewSide}>
-            <PerformanceSummary performance={data.performance} />
-          </div>
-        </div>
-      </section>
 
       {/* === CHART === */}
       <section id="section-chart" className={styles.section}>

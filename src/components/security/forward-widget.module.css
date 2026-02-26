@@ -422,7 +422,7 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 2px 7px;
+  padding: 7px 7px;
   border-radius: var(--radius-4);
   font-size: 11px;
   font-weight: var(--typography-weight-bold);
@@ -441,6 +441,8 @@
 .tenorBadgeMonthly {
   background: rgba(var(--color-brand-500-rgb), 0.08);
   color: var(--color-brand-700);
+  padding-top: 7px;
+  padding-bottom: 7px;
 }
 
 /* Group divider: fixed height, does not flex-grow */

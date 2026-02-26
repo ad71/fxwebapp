@@ -1,4 +1,5 @@
 export { SecurityHero } from "./security-hero";
+export { SecurityOverviewCard } from "./security-overview-card";
 export { KeyStatistics } from "./key-statistics";
 export { PerformanceSummary } from "./performance-summary";
 export { HistoricalChart } from "./historical-chart";
