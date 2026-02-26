@@ -1,0 +1,208 @@
+.hero {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-14);
+  padding: var(--spacing-24);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-20);
+}
+
+/* ── Top row: identity + freshness ── */
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+}
+
+.flag {
+  font-size: 28px;
+  line-height: 1;
+}
+
+.pairName {
+  font-size: var(--typography-size-2xl);
+  font-weight: var(--typography-weight-bold);
+  color: var(--color-ink-900);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.freshness {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  font-size: var(--typography-size-xs);
+  color: var(--color-ink-500);
+}
+
+.liveDot {
+  width: 6px;
+  height: 6px;
+  border-radius: var(--radius-full);
+  background: var(--color-semantic-success-600);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+/* ── Body: rate block + spark ── */
+.body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-24);
+}
+
+.rateBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.mainRate {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: 36px;
+  font-weight: var(--typography-weight-bold);
+  color: var(--color-ink-900);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+.changeUp,
+.changeDown {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  font-family: var(--typography-fontFamily-mono);
+  font-size: var(--typography-size-sm);
+  font-weight: var(--typography-weight-semibold);
+}
+
+.changeUp {
+  color: var(--color-semantic-success-600);
+}
+
+.changeDown {
+  color: var(--color-semantic-danger-600);
+}
+
+.bidAsk {
+  font-size: var(--typography-size-sm);
+  color: var(--color-ink-500);
+  font-family: var(--typography-fontFamily-mono);
+}
+
+.sparkBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-6);
+}
+
+.sparkLabel {
+  font-size: var(--typography-size-2xs);
+  color: var(--color-ink-400);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: var(--typography-weight-medium);
+}
+
+/* ── Ranges ── */
+.ranges {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-24);
+}
+
+.rangeItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-6);
+}
+
+.rangeLabel {
+  font-size: var(--typography-size-xs);
+  color: var(--color-ink-500);
+  font-weight: var(--typography-weight-medium);
+}
+
+/* ── Actions ── */
+.actions {
+  display: flex;
+  gap: var(--spacing-8);
+  padding-top: var(--spacing-4);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+/* ── Condensed variant ── */
+.condensed {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-12);
+  padding: var(--spacing-8) var(--spacing-24);
+  background: var(--color-surface-1);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.condensedFlag {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.condensedName {
+  font-size: var(--typography-size-sm);
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-ink-900);
+}
+
+.condensedRate {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: var(--typography-size-sm);
+  font-weight: var(--typography-weight-bold);
+  color: var(--color-ink-900);
+}
+
+.condensedUp {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: var(--typography-size-xs);
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-semantic-success-600);
+}
+
+.condensedDown {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: var(--typography-size-xs);
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-semantic-danger-600);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .body {
+    flex-direction: column;
+  }
+
+  .ranges {
+    grid-template-columns: 1fr;
+  }
+
+  .mainRate {
+    font-size: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .liveDot {
+    animation: none;
+  }
+}

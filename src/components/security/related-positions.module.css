@@ -1,0 +1,91 @@
+.container {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-14);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Header ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-16) var(--spacing-20);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--typography-size-base);
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-ink-900);
+}
+
+/* ── Table wrapper ── */
+.tableWrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  min-width: 720px;
+}
+
+/* ── Column styles ── */
+.numCol {
+  text-align: right;
+}
+
+.dateCol {
+  white-space: nowrap;
+}
+
+.mono {
+  font-family: var(--typography-fontFamily-mono);
+}
+
+.idCell {
+  font-weight: var(--typography-weight-semibold);
+  white-space: nowrap;
+}
+
+/* ── Head row ── */
+.headRow {
+  border-bottom: 1px solid rgba(var(--color-border-subtle-rgb), 0.6);
+}
+
+/* ── Data rows ── */
+.dataRow {
+  transition: background var(--motion-duration-100) var(--motion-easing-standard);
+}
+
+.dataRow:hover {
+  background: var(--color-surface-2);
+}
+
+/* ── Empty state ── */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-12);
+  padding: var(--spacing-48) var(--spacing-24);
+}
+
+.emptyText {
+  margin: 0;
+  font-size: var(--typography-size-sm);
+  color: var(--color-ink-400);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-12);
+  }
+}

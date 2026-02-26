@@ -1,0 +1,55 @@
+.nav {
+  position: sticky;
+  top: var(--topbar-height, 56px);
+  z-index: 40;
+  background: var(--color-surface-1);
+  border-bottom: 1px solid var(--color-border-subtle);
+  padding: var(--spacing-8) 0;
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.pill {
+  appearance: none;
+  border: none;
+  background: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-6);
+  padding: var(--spacing-6) var(--spacing-12);
+  border-radius: var(--radius-full);
+  font-size: var(--typography-size-sm);
+  font-weight: var(--typography-weight-medium);
+  color: var(--color-ink-500);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--motion-duration-150) var(--motion-easing-standard),
+    background var(--motion-duration-150) var(--motion-easing-standard);
+}
+
+.pill:hover {
+  color: var(--color-ink-700);
+  background: var(--color-surface-2);
+}
+
+.pill.active {
+  color: var(--color-brand-600);
+  background: var(--color-brand-100);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pill {
+    transition: none;
+  }
+}

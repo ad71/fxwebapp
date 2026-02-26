@@ -77,7 +77,9 @@
   border-bottom: 1px solid rgba(var(--color-border-subtle-rgb), 0.6);
   align-items: center;
   transition: background var(--motion-duration-100) var(--motion-easing-standard);
-  cursor: default;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
 }
 
 .row:last-child {
@@ -86,6 +88,18 @@
 
 .row:hover {
   background: var(--table-rowHover);
+}
+
+.row:hover .rowChevron {
+  opacity: 1;
+}
+
+.rowChevron {
+  opacity: 0;
+  color: var(--color-ink-400);
+  margin-left: var(--spacing-4);
+  transition: opacity var(--motion-duration-150) var(--motion-easing-standard);
+  flex-shrink: 0;
 }
 
 /* ── Drag handle ── */
@@ -233,6 +247,8 @@
 
 /* ── Timestamp ── */
 .timeCol {
+  display: flex;
+  align-items: center;
   font-family: var(--typography-fontFamily-mono);
   font-size: var(--typography-size-xs);
   font-weight: var(--typography-weight-medium);

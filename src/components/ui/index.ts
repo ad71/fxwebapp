@@ -9,3 +9,7 @@ export { Drawer, DrawerBody, DrawerFooter } from "./drawer";
 export { ToastProvider, useToast } from "./toast";
 export { Skeleton } from "./skeleton";
 export { Tooltip } from "./tooltip";
+export { SegmentedControl } from "./segmented-control";
+export { Sparkline } from "./sparkline";
+export { StatCard } from "./stat-card";
+export { SectionAnchorNav } from "./section-anchor-nav";

@@ -1,0 +1,57 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1.4fr 0.8fr 0.6fr 60px;
+  gap: var(--spacing-8);
+  align-items: center;
+  padding: var(--spacing-8) var(--spacing-12);
+  border-radius: var(--radius-8);
+  text-decoration: none;
+  color: inherit;
+  transition: background var(--motion-duration-100) var(--motion-easing-standard);
+}
+
+.row:hover {
+  background: var(--color-surface-2);
+}
+
+.pairInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.pairName {
+  font-size: var(--typography-size-sm);
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-ink-900);
+}
+
+.bid {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: var(--typography-size-sm);
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-ink-900);
+  text-align: right;
+}
+
+.changePositive {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: var(--typography-size-xs);
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-semantic-success-600);
+  text-align: right;
+}
+
+.changeNegative {
+  font-family: var(--typography-fontFamily-mono);
+  font-size: var(--typography-size-xs);
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-semantic-danger-600);
+  text-align: right;
+}

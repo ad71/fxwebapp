@@ -55,6 +55,13 @@ export const DEFAULT_WIDGETS: WidgetConfig[] = [
     minW: 3,
     minH: 4,
   },
+  {
+    id: "watchlist",
+    type: "watchlist",
+    title: "Watchlist",
+    minW: 4,
+    minH: 3,
+  },
 ];
 
 export const DEFAULT_LAYOUTS: DashboardLayout = [
@@ -66,9 +73,10 @@ export const DEFAULT_LAYOUTS: DashboardLayout = [
   { i: "balances", x: 8, y: 7, w: 4, h: 4, minW: 3, minH: 3 },
   { i: "recent-trades", x: 0, y: 8, w: 8, h: 5, minW: 4, minH: 4 },
   { i: "performance", x: 8, y: 11, w: 4, h: 6, minW: 3, minH: 4 },
+  { i: "watchlist", x: 0, y: 17, w: 12, h: 4, minW: 4, minH: 3 },
 ];
 
-export const DASHBOARD_VERSION = 1;
+export const DASHBOARD_VERSION = 2;
 
 export function getDefaultState(): DashboardState {
   return {

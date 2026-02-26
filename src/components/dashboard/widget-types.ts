@@ -11,7 +11,8 @@ export type WidgetType =
   | "hedge-ratio"
   | "balances"
   | "recent-trades"
-  | "performance";
+  | "performance"
+  | "watchlist";
 
 export interface WidgetConfig {
   id: string;

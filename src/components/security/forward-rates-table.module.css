@@ -1,0 +1,149 @@
+.container {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-14);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* ── Header bar ── */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-16) var(--spacing-20);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.title {
+  margin: 0;
+  font-size: var(--typography-size-base);
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-ink-900);
+}
+
+/* ── Table wrapper ── */
+.tableWrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table {
+  min-width: 700px;
+}
+
+/* ── Column alignment ── */
+.numCol {
+  text-align: right;
+}
+
+.dateCol {
+  white-space: nowrap;
+}
+
+.mono {
+  font-family: var(--typography-fontFamily-mono);
+}
+
+/* ── Head row (no bottom-border doubling with table default) ── */
+.headRow {
+  border-bottom: 1px solid rgba(var(--color-border-subtle-rgb), 0.6);
+}
+
+/* ── Data rows ── */
+.dataRow {
+  transition: background var(--motion-duration-100) var(--motion-easing-standard);
+}
+
+.dataRow:hover {
+  background: var(--color-surface-2);
+}
+
+/* ── Month-end rows: lighter bg + indent ── */
+.monthEndRow {
+  background: var(--color-surface-2);
+}
+
+.monthEndRow:hover {
+  background: var(--color-surface-hover, var(--color-surface-2));
+}
+
+.monthEndRow .tenorCell {
+  padding-left: var(--spacing-24);
+  color: var(--color-ink-500);
+  font-size: var(--typography-size-xs);
+}
+
+/* ── Separator row ── */
+.separatorRow {
+  background: transparent;
+}
+
+.separatorCell {
+  padding: var(--spacing-6) var(--spacing-16);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+
+.separatorLine {
+  flex: 1;
+  height: 1px;
+  background: var(--color-border-subtle);
+}
+
+.separatorText {
+  font-size: var(--typography-size-2xs);
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-ink-400);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+/* ── Emphasized column (selected display mode) ── */
+.emphasizedHeader {
+  color: var(--color-brand-500);
+}
+
+.emphasizedCell {
+  font-weight: var(--typography-weight-bold);
+  color: var(--color-brand-500);
+}
+
+/* ── Hedging cost colouring ── */
+.hedgingBrand {
+  color: var(--color-brand-500);
+}
+
+.hedgingDanger {
+  color: var(--color-semantic-danger-600);
+}
+
+/* ── Tenor cell ── */
+.tenorCell {
+  font-weight: var(--typography-weight-semibold);
+  white-space: nowrap;
+}
+
+/* ── Footer ── */
+.footer {
+  padding: var(--spacing-8) var(--spacing-20);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.footerNote {
+  font-size: var(--typography-size-xs);
+  color: var(--color-ink-400);
+  font-family: var(--typography-fontFamily-mono);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-12);
+  }
+}

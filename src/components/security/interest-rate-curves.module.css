@@ -1,0 +1,131 @@
+/* ── Layout ── */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-16);
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Panel ── */
+.panel {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-14);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.panelHeader {
+  padding: var(--spacing-16) var(--spacing-20);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.panelTitle {
+  margin: 0;
+  font-size: var(--typography-size-base);
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-ink-900);
+}
+
+.panelSubtitle {
+  margin: var(--spacing-4) 0 0;
+  font-size: var(--typography-size-xs);
+  color: var(--color-ink-400);
+}
+
+/* ── Table ── */
+.tableWrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  flex: 1;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--typography-size-sm);
+}
+
+.table thead {
+  background: var(--color-surface-2);
+}
+
+.table th {
+  padding: var(--spacing-8) var(--spacing-16);
+  text-align: left;
+  font-weight: var(--typography-weight-semibold);
+  font-size: var(--typography-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-ink-500);
+}
+
+.table td {
+  padding: var(--spacing-8) var(--spacing-16);
+  text-align: left;
+  border-bottom: 1px solid rgba(var(--color-border-subtle-rgb), 0.6);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr {
+  transition: background var(--motion-duration-100) var(--motion-easing-standard);
+}
+
+.table tbody tr:hover {
+  background: var(--color-surface-2);
+}
+
+.rateCol {
+  text-align: right;
+  font-family: var(--typography-fontFamily-mono);
+}
+
+.tenorCol {
+  font-weight: var(--typography-weight-semibold);
+  white-space: nowrap;
+}
+
+/* ── Differential row ── */
+.differential {
+  background: var(--color-surface-1);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-14);
+  padding: var(--spacing-12) var(--spacing-20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  font-size: var(--typography-size-sm);
+  color: var(--color-ink-700);
+}
+
+.diffLabel {
+  font-weight: var(--typography-weight-semibold);
+  color: var(--color-ink-900);
+}
+
+.diffValue {
+  font-family: var(--typography-fontFamily-mono);
+  font-weight: var(--typography-weight-bold);
+  color: var(--color-brand-500);
+}
+
+.diffTenor {
+  color: var(--color-ink-400);
+  font-size: var(--typography-size-xs);
+}

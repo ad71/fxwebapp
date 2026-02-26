@@ -13,4 +13,5 @@ export const widgetRegistry: Record<
   balances: lazy(() => import("./widgets/balances-widget")),
   "recent-trades": lazy(() => import("./widgets/recent-trades-widget")),
   performance: lazy(() => import("./widgets/performance-widget")),
+  watchlist: lazy(() => import("./widgets/watchlist-widget")),
 };

@@ -1,6 +1,8 @@
 "use client";
 
 import { memo, useRef, useState, useEffect } from "react";
+import Link from "next/link";
+import { ChevronRight } from "lucide-react";
 import type { CurrencyPairMeta, RateTick } from "../../lib/rates/types";
 import { CurrencyPairCell } from "./currency-pair-cell";
 import { Tooltip } from "../ui/tooltip";
@@ -102,7 +104,8 @@ function RateRowInner({
     .join(" ");
 
   return (
-    <div
+    <Link
+      href={`/security/${pair.id}`}
       className={rowClass}
       draggable
       onDragStart={(e) => onDragStart(e, pair.id)}
@@ -111,7 +114,11 @@ function RateRowInner({
       onDrop={(e) => onDrop(e, pair.id)}
     >
       <div className={styles.pairCell}>
-        <div className={styles.dragHandle}>
+        <div
+          className={styles.dragHandle}
+          onClick={(e) => e.preventDefault()}
+          onMouseDown={(e) => e.stopPropagation()}
+        >
           <div className={styles.gripDots}>
             {Array.from({ length: 6 }).map((_, i) => (
               <div key={i} className={styles.gripDot} />
@@ -167,9 +174,12 @@ function RateRowInner({
       <div className={styles.ohlcCol}>{formatRate(tick.close, pair)}</div>
 
       <Tooltip content={formatFullTimestamp(tick.lastUpdated)}>
-        <div className={`${styles.timeCol} ${styles.cellSep}`}>{formatTimestamp(tick.lastUpdated)}</div>
+        <div className={`${styles.timeCol} ${styles.cellSep}`}>
+          {formatTimestamp(tick.lastUpdated)}
+          <ChevronRight size={14} className={styles.rowChevron} />
+        </div>
       </Tooltip>
-    </div>
+    </Link>
   );
 }
 
